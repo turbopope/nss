@@ -4,6 +4,7 @@ use List::Util qw(pairs);
     watts2002simple         http://www.stat.berkeley.edu/~aldous/260-FMIE/Papers/watts.pdf
     newman2003structure     http://epubs.siam.org/doi/pdf/10.1137/S003614450342480
     milgram1969note         https://www.dropbox.com/s/ij30vedzdinljpo/milgram1969note.pdf?raw=1
+    watts1999small          http://blacky.terra32.net/trusso/CorsoTeoriaAvanzataReti/info4/altrecose/DuncanJWattsSigma.pdf
 );
 for (pairs @PAPERS) {
     ($name, $url) = @$_;

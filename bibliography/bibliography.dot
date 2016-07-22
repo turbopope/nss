@@ -1,3 +1,4 @@
 digraph citations {
   newman2003structure -> watts2002simple
+  watts2002simple -> watts1999small
 }
