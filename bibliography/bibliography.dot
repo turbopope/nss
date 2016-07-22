@@ -1,4 +1,3 @@
 digraph citations {
   newman2003structure -> watts2002simple
-  karimi2013temporal -> watts2002simple
 }
