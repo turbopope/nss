@@ -1,4 +1,5 @@
 import haxe.Timer;
+import sys.io.File;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.Event.RESIZE;
@@ -72,6 +73,32 @@ class Main extends Sprite
             }
 
             content.addChildAt(node.lines, 0);
+        }
+
+        if (Sys.args().length == 2) {
+            var saveName = Sys.args()[0];
+            var save : {nodes:Array<Dynamic>, edges:Array<Dynamic>} = haxe.Json.parse(File.getContent("../../../../../" + saveName + ".json"));
+
+            var newNodes = new Array<Node>();
+            for (rawNode in save.nodes) {
+                var node = new Node(rawNode.t, false);
+                node.x = rawNode.x;
+                node.y = rawNode.y;
+                newNodes.push(node);
+            }
+
+            for (rawEdge in save.edges) {
+                var a = newNodes[rawEdge.a];
+                var b = newNodes[rawEdge.b];
+                a.addNeighbor(b);
+                b.addNeighbor(a);
+            }
+
+            for (newNode in newNodes) {
+                content.addChild(newNode);
+                nodes.push(newNode);
+                content.addChildAt(newNode.lines, 0);
+            }
         }
 
         stage.addEventListener(KEY_DOWN, onKey);
