@@ -17,6 +17,7 @@ class Main extends Sprite
     static inline var MIN_K  = 1;
     static inline var MAX_K  = 5;
     static inline var UNIT_DISC_RADIUS = 200;
+    static inline var MIN_NODE_DISTANCE = 32;
 
     static inline var MIN_IMPULSE_COUNT = 10;
     static inline var MAX_IMPULSE_COUNT = 20;
@@ -34,8 +35,10 @@ class Main extends Sprite
 
         for (i in 0 ... NODES) {
             var node = new Node(Math.random(), false);
-            node.x   = WIDTH  * Math.random();
-            node.y   = HEIGHT * Math.random();
+            do {
+                node.x   = WIDTH  * Math.random();
+                node.y   = HEIGHT * Math.random();
+            } while(nodeTooClose(node, nodes));
             content.addChild(node);
             nodes.push(node);
 
@@ -46,24 +49,26 @@ class Main extends Sprite
         }
 
         for (node in nodes) {
-            var nodesLeft = nodes.copy();
-            nodesLeft.remove(node);
+            var potentialNeighbors = nodes.copy();
+            potentialNeighbors.remove(node);
             for (n in node.neighbors) {
-                nodesLeft.remove(n);
+                potentialNeighbors.remove(n);
             }
 
-            for (other in nodesLeft.copy()) {
+            for (other in potentialNeighbors.copy()) {
                 if (node.distanceTo(other) > UNIT_DISC_RADIUS) {
-                    nodesLeft.remove(other);
+                    potentialNeighbors.remove(other);
                 }
             }
 
-            var k = rand(MIN_K, MAX_K);
-            for (i in 0 ... Std.int(Math.min(k, nodesLeft.length))) {
-                var neighbor = nodesLeft[Std.random(nodesLeft.length)];
-                nodesLeft.remove(neighbor);
-                node.addNeighbor(neighbor);
-                neighbor.addNeighbor(node);
+            for (other in potentialNeighbors) {
+                var toTest = nodes.copy();
+                toTest.remove(other);
+                toTest.remove(node);
+                if (connecting_circle_empty(node, other, toTest)) {
+                    node.addNeighbor(other);
+                    other.addNeighbor(node);
+                }
             }
 
             content.addChildAt(node.lines, 0);
@@ -140,5 +145,38 @@ class Main extends Sprite
     public static function rand(min:Int, max:Int)
     {
         return Std.random(max - min + 1) + min;
+    }
+
+    public static function nodeTooClose(node:Node, otherNodes:Array<Node>)
+    {
+        for (other in otherNodes) {
+            if (node.distanceTo(other) < MIN_NODE_DISTANCE) {
+                trace("Correcting for closeness");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function circleContainsPoint(circleX:Float, circleY:Float, circleRadius:Float, pointX:Float, pointY:Float)
+    {
+        var x = circleX - pointX;
+        var y = circleY - pointY;
+        var distance = Math.sqrt(x*x + y*y);
+        return distance <= circleRadius;
+    }
+
+    function connecting_circle_empty(a:Node, b:Node, otherNodes:Array<Node>)
+    {
+        trace(otherNodes.length);
+        var diameter = a.distanceTo(b);
+        var midPointX = (a.x + b.x) / 2;
+        var midPointY = (a.y + b.y) / 2;
+        for (n in otherNodes) {
+            if (circleContainsPoint(midPointX, midPointY, diameter/2, n.x, n.y)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
