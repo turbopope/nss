@@ -97,4 +97,11 @@ class Node extends Sprite
             rotation = 0;
         }
     }
+
+    public function distanceTo(other:Node)
+    {
+      var x = this.x - other.x;
+      var y = this.y - other.y;
+      return Math.sqrt(x*x + y*y);
+    }
 }

@@ -16,6 +16,7 @@ class Main extends Sprite
     static inline var NODES  = 200;
     static inline var MIN_K  = 1;
     static inline var MAX_K  = 5;
+    static inline var UNIT_DISC_RADIUS = 200;
 
     static inline var MIN_IMPULSE_COUNT = 10;
     static inline var MAX_IMPULSE_COUNT = 20;
@@ -51,8 +52,14 @@ class Main extends Sprite
                 nodesLeft.remove(n);
             }
 
+            for (other in nodesLeft.copy()) {
+                if (node.distanceTo(other) > UNIT_DISC_RADIUS) {
+                    nodesLeft.remove(other);
+                }
+            }
+
             var k = rand(MIN_K, MAX_K);
-            for (i in 0 ... k) {
+            for (i in 0 ... Std.int(Math.min(k, nodesLeft.length))) {
                 var neighbor = nodesLeft[Std.random(nodesLeft.length)];
                 nodesLeft.remove(neighbor);
                 node.addNeighbor(neighbor);
