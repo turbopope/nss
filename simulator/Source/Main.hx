@@ -167,7 +167,6 @@ class Main extends Sprite
 
     function connecting_circle_empty(a:Node, b:Node, otherNodes:Array<Node>)
     {
-        trace(otherNodes.length);
         var diameter = a.distanceTo(b);
         var midPointX = (a.x + b.x) / 2;
         var midPointY = (a.y + b.y) / 2;
