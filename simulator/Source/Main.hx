@@ -151,7 +151,6 @@ class Main extends Sprite
     {
         for (other in otherNodes) {
             if (node.distanceTo(other) < MIN_NODE_DISTANCE) {
-                trace("Correcting for closeness");
                 return true;
             }
         }
