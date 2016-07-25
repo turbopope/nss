@@ -93,7 +93,12 @@ class Main extends Sprite
         if (save != null) {
             var newNodes = new Array<Node>();
             for (rawNode in save.nodes) {
-                var node = new Node(rawNode.t, false);
+                var state = false;
+                if (Reflect.hasField(rawNode, "s")) {
+                    state = Reflect.getProperty(rawNode, "s");
+                    state = true;
+                }
+                var node = new Node(rawNode.t, state);
                 node.x = rawNode.x;
                 node.y = rawNode.y;
                 newNodes.push(node);
