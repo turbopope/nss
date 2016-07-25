@@ -1,0 +1,68 @@
+\documentclass[slidestop,usenames,dvipsnames]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[yyyymmdd]{datetime}
+\renewcommand{\dateseparator}{-}
+
+\title{Network Cascades}
+\subtitle{The Grim Truth Revealed}
+\author{Marco Brack \and Carsten Hartenfels}
+
+\beamertemplatenavigationsymbolsempty
+\usetheme{Boadilla}
+\usecolortheme{whale}
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+\defbeamertemplate*{footline}{my infolines theme} {
+    \leavevmode
+    \hbox{
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}
+        \usebeamerfont{author in head/foot}Marco Brack, Carsten Hartenfels
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}
+        \usebeamerfont{title in head/foot}The Grim Truth Revealed
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=.309\paperwidth,ht=2.25ex,dp=1ex,center]{date in head/foot}
+        \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+        \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+    \end{beamercolorbox}}
+    \vskip0pt
+}
+
+\newcommand{\fitem}{\pause\vfill\item}
+\newcommand{\gitem}{\vfill\item}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \frametitle{Content}
+    \begin{itemize}
+        \gitem The Motivation
+        \gitem The Model
+        \gitem The Cascade Into Madness
+        \gitem The End
+    \end{itemize}
+    \vfill
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \vfill
+    \begin{center}
+        {\Huge Thank You All For Listening}\
+    \end{center}
+\end{frame}
+
+\end{document}
