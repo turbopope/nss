@@ -1,4 +1,4 @@
-presentation.pdf: presentation.tex
+presentation.pdf: presentation.tex modelofdoom.tex
 	pdflatex presentation
 	pdflatex presentation
 
