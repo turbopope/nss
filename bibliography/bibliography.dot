@@ -3,4 +3,5 @@ digraph citations {
   kempe2003maximizing -> watts2002simple
   watts2002simple -> watts1999small
   anderson1997information
+  eftekhar2013information
 }
