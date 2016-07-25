@@ -95,7 +95,7 @@ class Main extends Sprite
             for (rawNode in save.nodes) {
                 var state = false;
                 if (Reflect.hasField(rawNode, "s")) {
-                    state = Reflect.getProperty(rawNode, "s");
+                    state = Reflect.field(rawNode, "s");
                     state = true;
                 }
                 var node = new Node(rawNode.t, state);
@@ -228,7 +228,7 @@ class Main extends Sprite
 
     public static function getDynamicProperty(dyn, field, def) {
       if (Reflect.hasField(dyn, field)) {
-          return Reflect.getProperty(dyn, field);
+          return Reflect.field(dyn, field);
       }
       return def;
     }
