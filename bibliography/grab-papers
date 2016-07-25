@@ -6,6 +6,7 @@ use List::Util qw(pairs);
     milgram1969note         https://www.dropbox.com/s/ij30vedzdinljpo/milgram1969note.pdf?raw=1
     watts1999small          http://blacky.terra32.net/trusso/CorsoTeoriaAvanzataReti/info4/altrecose/DuncanJWattsSigma.pdf
     kempe2003maximizing     http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.407.4750&rep=rep1&type=pdf
+    anderson1997information http://www.pugetsound.edu/facultypages/gmilam/courses/econ291/readings/AndersonHolt_InfoCascade.pdf
 );
 for (pairs @PAPERS) {
     ($name, $url) = @$_;

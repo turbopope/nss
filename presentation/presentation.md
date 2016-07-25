@@ -16,12 +16,17 @@ Social Applications:
 
 # Example
 
+* A Worker has Some Bad Initial Job Interviews
+* Subsequent Employers Reject the Worker Because of "Bad Signals", Despite Good Interviews
+
+Quelle: anderson1997information
+
 # Modeling Network Cascades
 
 ## Watts
 
-* Binary Decision ($$0$$ or $$1$$)
-* Decision Based on Relative Number of Observed Others (threshold $$\Phi$$)
+* Binary Decision ($0$ or $1$)
+* Decision Based on Relative Number of Observed Others (threshold $\Phi$)
 * Thresholds can Vary Between Agents
 * Number of Neighbors can Vary
 
