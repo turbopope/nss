@@ -25,8 +25,8 @@ Quelle: anderson1997information
 
 ## Watts
 
-* Binary Decision ($$0$$ or $$1$$)
-* Decision Based on Relative Number of Observed Others (threshold $$\Phi$$)
+* Binary Decision ($0$ or $1$)
+* Decision Based on Relative Number of Observed Others (threshold $\Phi$)
 * Thresholds can Vary Between Agents
 * Number of Neighbors can Vary
 
