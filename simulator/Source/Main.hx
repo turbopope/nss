@@ -27,7 +27,7 @@ class Main extends Sprite
     var nodes   = new Array<Node>();
     var time    = 0.0;
     var scale   = 0.0;
-    var step    = 0.0;
+    var step    = -1.0;
 
     public function new()
     {
@@ -93,7 +93,12 @@ class Main extends Sprite
         if (save != null) {
             var newNodes = new Array<Node>();
             for (rawNode in save.nodes) {
-                var node = new Node(rawNode.t, false);
+                var state = false;
+                if (Reflect.hasField(rawNode, "s")) {
+                    state = Reflect.field(rawNode, "s");
+                    state = true;
+                }
+                var node = new Node(rawNode.t, state);
                 node.x = rawNode.x;
                 node.y = rawNode.y;
                 newNodes.push(node);
@@ -223,7 +228,7 @@ class Main extends Sprite
 
     public static function getDynamicProperty(dyn, field, def) {
       if (Reflect.hasField(dyn, field)) {
-          return Reflect.getProperty(dyn, field);
+          return Reflect.field(dyn, field);
       }
       return def;
     }
