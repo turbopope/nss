@@ -1,4 +1,5 @@
 import haxe.Timer;
+import sys.io.File;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.Event.RESIZE;
@@ -13,14 +14,14 @@ class Main extends Sprite
     static inline var WIDTH  = 1920.0;
     static inline var HEIGHT = 1080.0;
 
-    static inline var NODES  = 200;
-    static inline var MIN_K  = 1;
-    static inline var MAX_K  = 5;
-    static inline var UNIT_DISC_RADIUS = 200;
-    static inline var MIN_NODE_DISTANCE = 32;
+    var NODES  = 200;
+    var MIN_K  = 1;
+    var MAX_K  = 5;
+    var UNIT_DISC_RADIUS = 200;
+    var MIN_NODE_DISTANCE = 32;
 
-    static inline var MIN_IMPULSE_COUNT = 10;
-    static inline var MAX_IMPULSE_COUNT = 20;
+    var MIN_IMPULSE_COUNT = 10;
+    var MAX_IMPULSE_COUNT = 20;
 
     var content = new Sprite();
     var nodes   = new Array<Node>();
@@ -33,7 +34,22 @@ class Main extends Sprite
         super();
         addChild(content);
 
-        for (i in 0 ... NODES) {
+        var save : {nodes:Array<Dynamic>, edges:Array<Dynamic>} = null;
+        if (Sys.args().length == 2) {
+            var saveName = Sys.args()[0];
+            save = haxe.Json.parse(File.getContent("../../../../../" + saveName + ".json"));
+
+            NODES = getDynamicProperty(save, "NODES", NODES);
+            MIN_K = getDynamicProperty(save, "MIN_K", MIN_K);
+            MAX_K = getDynamicProperty(save, "MAX_K", MAX_K);
+            UNIT_DISC_RADIUS = getDynamicProperty(save, "UNIT_DISC_RADIUS", UNIT_DISC_RADIUS);
+            MIN_NODE_DISTANCE = getDynamicProperty(save, "MIN_NODE_DISTANCE", MIN_NODE_DISTANCE);
+
+            MIN_IMPULSE_COUNT = getDynamicProperty(save, "MIN_IMPULSE_COUNT", MIN_IMPULSE_COUNT);
+            MAX_IMPULSE_COUNT = getDynamicProperty(save, "MAX_IMPULSE_COUNT", MAX_IMPULSE_COUNT);
+        }
+
+        for (i in 0 ...  NODES) {
             var node = new Node(Math.random(), false);
             do {
                 node.x   = WIDTH  * Math.random();
@@ -72,6 +88,33 @@ class Main extends Sprite
             }
 
             content.addChildAt(node.lines, 0);
+        }
+
+        if (save != null) {
+            var newNodes = new Array<Node>();
+            for (rawNode in save.nodes) {
+                var node = new Node(rawNode.t, false);
+                node.x = rawNode.x;
+                node.y = rawNode.y;
+                newNodes.push(node);
+            }
+
+            for (rawEdge in save.edges) {
+                var a = newNodes[rawEdge.a];
+                var b = newNodes[rawEdge.b];
+                a.addNeighbor(b);
+                b.addNeighbor(a);
+            }
+
+            for (newNode in newNodes) {
+                content.addChild(newNode);
+                nodes.push(newNode);
+                content.addChildAt(newNode.lines, 0);
+                newNode.buttonMode = true;
+                newNode.addEventListener(CLICK, function (_) {
+                    newNode.state = !newNode.state;
+                });
+            }
         }
 
         stage.addEventListener(KEY_DOWN, onKey);
@@ -147,7 +190,7 @@ class Main extends Sprite
         return Std.random(max - min + 1) + min;
     }
 
-    public static function nodeTooClose(node:Node, otherNodes:Array<Node>)
+    public function nodeTooClose(node:Node, otherNodes:Array<Node>)
     {
         for (other in otherNodes) {
             if (node.distanceTo(other) < MIN_NODE_DISTANCE) {
@@ -176,5 +219,12 @@ class Main extends Sprite
             }
         }
         return true;
+    }
+
+    public static function getDynamicProperty(dyn, field, def) {
+      if (Reflect.hasField(dyn, field)) {
+          return Reflect.getProperty(dyn, field);
+      }
+      return def;
     }
 }

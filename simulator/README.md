@@ -4,9 +4,9 @@ Requires OpenFL: <http://www.openfl.org/download/>
 
 Compile and run with `lime test <target>`, where target is one of:
 
-* `flash`
+* `flash` (just don't)
 
-* `html5`
+* `html5` (does not work anymore since we need `sys.io.File`)
 
 * `neko`
 
@@ -21,3 +21,5 @@ Or cross compile to:
 * `mac`
 
 * `android`
+
+Pass `-args <save>` to load a network save file.
