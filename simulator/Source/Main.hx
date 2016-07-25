@@ -110,6 +110,10 @@ class Main extends Sprite
                 content.addChild(newNode);
                 nodes.push(newNode);
                 content.addChildAt(newNode.lines, 0);
+                newNode.buttonMode = true;
+                newNode.addEventListener(CLICK, function (_) {
+                    newNode.state = !newNode.state;
+                });
             }
         }
 
