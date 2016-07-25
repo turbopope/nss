@@ -27,7 +27,7 @@ class Main extends Sprite
     var nodes   = new Array<Node>();
     var time    = 0.0;
     var scale   = 0.0;
-    var step    = 0.0;
+    var step    = -1.0;
 
     public function new()
     {
