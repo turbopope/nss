@@ -1,3 +1,3 @@
 #!/bin/bash
 
-dot -Tpng bibliography.dot > bibliography.png
+dot -Tpng bibliography.doot > bibliography.png
