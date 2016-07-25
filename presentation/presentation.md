@@ -16,6 +16,11 @@ Social Applications:
 
 # Example
 
+* A Worker has Some Bad Initial Job Interviews
+* Subsequent Employers Reject the Worker Because of "Bad Signals", Despite Good Interviews
+
+Quelle: anderson1997information
+
 # Modeling Network Cascades
 
 ## Watts
