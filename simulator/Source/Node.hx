@@ -47,6 +47,14 @@ class Node extends Sprite
 
         lines.graphics.lineStyle(1, 0);
         lines.alpha = 0.1;
+
+        nextCheck();
+    }
+
+
+    function nextCheck()
+    {
+        check = rand(MIN_DELAY, MAX_DELAY) + check;
     }
 
 
@@ -88,7 +96,7 @@ class Node extends Sprite
             checking = true;
             oldState = state;
             checkState();
-            check = rand(MIN_DELAY, MAX_DELAY) + check;
+            nextCheck();
         }
         else if (t > 0 && checking) {
             checking = false;
