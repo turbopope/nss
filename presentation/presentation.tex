@@ -48,7 +48,6 @@
     \frametitle{Content}
     \begin{itemize}
         \gitem Motivation
-        \gitem Random Networks
         \gitem Watts' Model
         \gitem Demonstration
         \gitem Limitations
@@ -112,19 +111,25 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Random Networks}
-  \begin{itemize}
-    \fitem
-  \end{itemize}
-  \vfill
+    \frametitle{Watt's Model}
+    \begin{itemize}
+        \fitem Each person/agent is a node in a graph
+        \fitem Agents have a state $\in \lbrace 0, 1 \rbrace$
+        \fitem Agents observe their neighbors
+        \fitem Agents change to a state if a fraction of their neighbors has that state
+    \end{itemize}
+    \vfill
 \end{frame}
 
 \begin{frame}
-    \frametitle{Watt's Model}
-    \begin{itemize}
-        \fitem
-    \end{itemize}
-    \vfill
+  \frametitle{Watt's Model -- Random Graph}
+  \begin{itemize}
+    \fitem $n$ nodes
+    \fitem $p_k$ propability of $n$ to have $k$ neighbors
+    \fitem $z = \left<k\right>$ expectation value or average degree
+    \fitem $p_k = \frac{e^{-z}z^k}{k!}$ Poisson-distributed (Erdős–Rényi-Model with $p = \frac{z}{n}$)
+  \end{itemize}
+  \vfill
 \end{frame}
 
 % too much clutter
