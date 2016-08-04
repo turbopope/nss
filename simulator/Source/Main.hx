@@ -11,8 +11,8 @@ import openfl.ui.Keyboard;
 
 class Main extends Sprite
 {
-    static inline var WIDTH  = 1920.0;
-    static inline var HEIGHT = 1080.0;
+    var contentWidth  = 1920.0;
+    var contentHeight = 1080.0;
 
     var NODES  = 200;
     var MIN_K  = 1;
@@ -47,13 +47,16 @@ class Main extends Sprite
 
             MIN_IMPULSE_COUNT = getDynamicProperty(save, "MIN_IMPULSE_COUNT", MIN_IMPULSE_COUNT);
             MAX_IMPULSE_COUNT = getDynamicProperty(save, "MAX_IMPULSE_COUNT", MAX_IMPULSE_COUNT);
+
+            contentWidth  = getDynamicProperty(save, "WIDTH",  contentWidth );
+            contentHeight = getDynamicProperty(save, "HEIGHT", contentHeight);
         }
 
         for (i in 0 ...  NODES) {
             var node = new Node(Math.random(), false);
             do {
-                node.x   = WIDTH  * Math.random();
-                node.y   = HEIGHT * Math.random();
+                node.x   = contentWidth  * Math.random();
+                node.y   = contentHeight * Math.random();
             } while(nodeTooClose(node, nodes));
             content.addChild(node);
             nodes.push(node);
@@ -185,8 +188,8 @@ class Main extends Sprite
 
     function resize(?e:Event)
     {
-        content.scaleX = stage.stageWidth  / WIDTH;
-        content.scaleY = stage.stageHeight / HEIGHT;
+        content.scaleX = stage.stageWidth  / contentWidth;
+        content.scaleY = stage.stageHeight / contentHeight;
     }
 
 
@@ -226,7 +229,8 @@ class Main extends Sprite
         return true;
     }
 
-    public static function getDynamicProperty(dyn, field, def) {
+    public static function getDynamicProperty<T>(dyn:Dynamic, field:String, def:T):T
+    {
       if (Reflect.hasField(dyn, field)) {
           return Reflect.field(dyn, field);
       }
