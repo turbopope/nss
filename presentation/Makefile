@@ -1,11 +1,9 @@
-presentation.pdf: presentation.tex modelofdoom.tex ../bibliography/bibliography.bib
-	pdflatex presentation
-	bibtex presentation
+presentation.pdf: presentation.tex modelofdoom.tex
 	pdflatex presentation
 	pdflatex presentation
 
 clean:
-	rm -f *.aux *.bbl *.blg *.lof *.log *.out *.toc *.lol *.nav *.snm *.bbl *.blg
+	rm -f *.aux *.bbl *.blg *.lof *.log *.out *.toc *.lol *.nav *.snm
 
 realclean: clean
 	rm -f presentation.pdf
