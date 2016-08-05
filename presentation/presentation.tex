@@ -1,6 +1,7 @@
 \documentclass[slidestop,usenames,dvipsnames]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[absolute,overlay]{textpos}
 \usepackage{graphicx}
 \usepackage[yyyymmdd]{datetime}
 \renewcommand{\dateseparator}{-}
@@ -64,7 +65,7 @@
         \vfill\vspace{8pt}
         {\huge Twilight}
         \vfill\vspace{8pt}
-        {\small Quelle: \url{https://en.wikipedia.org/wiki/File:Twilightbook.jpg}}
+        {\small Source: \url{https://en.wikipedia.org/wiki/File:Twilightbook.jpg}}
     \end{center}
     \vfill
 \end{frame}
@@ -76,7 +77,7 @@
         \vfill\vspace{8pt}
         {\huge WhatsApp}
         \vfill\vspace{8pt}
-        {\small Quelle: \url{https://commons.wikimedia.org/wiki/File:WhatsApp.svg}}
+        {\small Source: \url{https://commons.wikimedia.org/wiki/File:WhatsApp.svg}}
     \end{center}
     \vfill
 \end{frame}
@@ -88,7 +89,7 @@
         \vfill\vspace{8pt}
         {\huge Political Coups}
         \vfill\vspace{8pt}
-        {\small Quelle: \url{http://tinyurl.com/jmv529r}}
+        {\small Source: \url{http://tinyurl.com/jmv529r}}
     \end{center}
     \vfill
 \end{frame}
@@ -141,20 +142,40 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Findings}
+    \begin{textblock*}{5cm}(7cm,2.2cm)
+        \includegraphics[width=5cm]{img/sparse}
+    \end{textblock*}
+    \begin{itemize}
+        \gitem Cascades in Sparse Networks
+        \begin{itemize}
+          \fitem Limited by Connectivity
+          \fitem Cascade Size Exhibits Power-Law Distribution
+          \fitem Most Highly Connected Cluster is Critical Triggers
+        \end{itemize}
+    \end{itemize}
+    \vfill
+\end{frame}
+
+\begin{frame}
+    \frametitle{Findings}
+    \begin{textblock*}{5cm}(7cm,2.2cm)
+        \includegraphics[width=5cm]{img/dense}
+    \end{textblock*}
+    \begin{itemize}
+        \gitem Cascades in Dense Networks
+        \begin{itemize}
+            \fitem Limited by Threshold
+            \fitem Cascade Size Bimodal (Most are Small, Some are Large)
+            \fitem Cluster with Average Degrees are Triggers (Because They are Frequent)
+        \end{itemize}
+    \end{itemize}
+    \vfill
+\end{frame}
+
+\begin{frame}
   \frametitle{Findings}
   \begin{itemize}
-    \fitem Cascades in Sparse Networks
-    \begin{itemize}
-      \fitem Limited by Connectivity
-      \fitem Cascade Size Exhibits Power-Law Distribution
-      \fitem Most Highly Connected Cluster is Critical Triggers
-    \end{itemize}
-    \fitem Cascades in Dense Networks
-    \begin{itemize}
-        \fitem Limited by Threshold
-        \fitem Cascade Size Bimodal (Most are Small, Some are Large)
-        \fitem Cluster with Average Degrees are Triggers (Because They are Frequent)
-      \end{itemize}
     \fitem Threshold Heterogenity Increases Cascade Likelihood
     \fitem Degree Heterogenity Decreases Cascade Likelihood
   \end{itemize}
