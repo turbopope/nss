@@ -47,6 +47,8 @@ Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a proba
 
 In our example, we choose $z$ to be 2. This means that the graph of the degree distribution for $p_k$ has its peak at 2 and that we would expect that most nodes have 2 neighbors. Plugging that into the distribution function tells us that the propability for this case (2 neighbors) is about $27\%$, and the propability for 1 neighbor is $27\%$, $18\%$ for 3 neighbors, $9\%$ for 4 and $3\%$ for 5, and so on. According to this, a ``realistic'' network for our potential WhatsApp users might have an connection between Alice and Bob, between Bob and Charly, and Charly and Dave, leaving Alice and Dave with each one neighbour, and Bob and Charly with each two neighbors.
 
+%TODO: Image
+
 This random network model is equivalent to an Erdős–Rényi-Model with $p = \frac{z}{n}$. Networks following the Erdős–Rényi-Model are build by creating $n$ nodes and creating each possible edge with a propability $p$. This method generates networks which have a small average distances between nodes and a low amount of clustering.
 
 In the example, there are $n = 4$ nodes. With $z = 2$ $p$ is $\frac{2}{4} = 0.5$, so we would expect half of all possible edges to exist. There are 6 possible edges in the network (this is excluding edges from a node to itself), and we chose to create 3, so our example indeed conforms perfectly to the Erdős–Rényi-Model.
@@ -58,9 +60,9 @@ The integral restriction is more easily understandable in a discrete case. For o
 $
 f(\phi) =
   \begin{cases}
-    0 & \phi \in {0, 1} \\
-    0.1 & \phi \in {0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9} \\
-    0.2 & \phi in {0.5}
+    0 & \phi \in \{0, 1\} \\
+    0.1 & \phi \in \{0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9\} \\
+    0.2 & \phi \in \{0.5\}
   \end{cases}
 $
 
@@ -73,6 +75,8 @@ Now the model is simulated over a time $t$, starting with $0$. At a random point
 In independent random intervals, each node with state $0$ checks the state of all its neighbors. If the ratio of neighbors with states $1$ is greater than or equal to the node's threshold $\phi$, it will also change its state to $1$. This is the act of a person being ``convinced'' to begin using the application because enough of their friends are using it as well.
 
 However, an agent with state $1$ will never switch back to state $0$. This does not directly map to a concept in a real-world example, as people may stop using an application at a later time. See also section \ref{sec:threats}.
+
+In the example with Alice and the others, we apply the first propability distribution from above. Let's say that Alice and Bob are assigned a threshold of $\phi_{Alice} = \phi_{Bob} = 0.5$ (for which the propability is $20\%$), Charly is assigned $\phi_{Charly} = 0.3$ and Dave $\phi_{Dave} = 0.9$. This means that Dave is very hard to ``convince'', at least $90\%$ of his neighbors must use WhatsApp before he decides to use it (switch his state to $1$), whereas Charly already switches if only $30\%$ of his neighbors adopt the technology. Since Dave has only 1 neighbor, Charly, he switches as soon as Charly switches (in this case, $100\%$ of his neighbors would have switched). Dave has two neighbors, Bob and Dave, but only needs $30\%$ to switch, so it suffices if either Bob or Dave switch (that would be $50\%$ of his neighbors).
 
 
 \section{Example}\label{sec:example}
