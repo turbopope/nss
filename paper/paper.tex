@@ -51,7 +51,20 @@ This random network model is equivalent to an Erdős–Rényi-Model with $p = \f
 
 In the example, there are $n = 4$ nodes. With $z = 2$ $p$ is $\frac{2}{4} = 0.5$, so we would expect half of all possible edges to exist. There are 6 possible edges in the network (this is excluding edges from a node to itself), and we chose to create 3, so our example indeed conforms perfectly to the Erdős–Rényi-Model.
 
-Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution $f(\phi): [0,1] \rightarrow [0,1]$ which must be normalized such that $\int_0^1 f(\phi) d\phi = 1$, i.e. the area beneath the propability function is 1, which means that all distributions must allocate the same total of propabilities, which makes them comparable among each other. Relating to the example, this represents the ``convincability'' of a person.
+Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution $f(\phi): [0,1] \rightarrow [0,1]$ which must be normalized such that $\int_0^1 f(\phi) d\phi = 1$, i.e. the area beneath the propability function is 1, which means that all distributions must allocate the same total of propabilities. This restriction is necessary because we are assigning a propability to mutually exclusive ``events''. Relating to the example, this represents the ``convincability'' of a person.
+
+The integral restriction is more easily understandable in a discrete case. For our WhatsApp example, we define the following discrete propability distribution:
+
+$
+f(\phi) =
+  \begin{cases}
+    0 & \phi \in {0, 1} \\
+    0.1 & \phi \in {0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9} \\
+    0.2 & \phi in {0.5}
+  \end{cases}
+$
+
+This means that the thresholds $0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9$ all have a propability of $10\%$ to be chosen, the threshold $0.5$ has a chance of $20\%$, and 0 and 1 will not be chosen at all. In contrast, we could assign a propability of $100\%$ to the threshold 0 and $0\%$ to all other thresholds and would still conform to the integral restriction.
 
 Finally, all agents are given a state $\in \left\lbrace 0, 1 \right\rbrace$, which is initially set to $0$ for all notes. In the example's case, a state of $1$ represents a user of the communication application and a value of $0$ represents someone not using it.
 
