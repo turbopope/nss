@@ -1,8 +1,13 @@
-build: paper.tex paper.bib Makefile
+paper.pdf: paper.tex paper.bib Makefile
 	pdflatex paper
 	bibtex paper
 	pdflatex paper
 	pdflatex paper
+	./checkwords
+
+rebuild:
+	make realclean
+	make
 
 clean:
 	rm -f *~
@@ -19,3 +24,5 @@ clean:
 
 realclean: clean
 	rm -f paper.pdf
+
+.PHONY: clean realclean checkwords
