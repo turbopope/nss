@@ -41,9 +41,15 @@ The following section details Watts' simple model of network cascades\cite{simpl
 
 The model deals with a network of $n \in \mathbb{N}$ \emph{agents}. These agents are represented as nodes in a random graph. In regards to the example from section \ref{sec:motivation}, these agents represent people.
 
+Relating this to the example, this might mean that Alice, Bob, Charly and Dave are ``agents'' who are faced with the decision if they should jump on the WhatsApp bandwagon and are thus each represented as a node in the network.
+
 Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a probability of $p_k \in [0,1]$. These edges represent the neighbors that each node observes, or in the example's terms, the person's friends. $p_k$ is poisson-distributed: $p_k = \frac{e^{-z}z^k}{k!}$, with $z = \left<k\right>$ being the expectation-value of $p_k$ (the average degree).
 
+In our example, we choose $z$ to be 2. This means that the graph of the degree distribution for $p_k$ has its peak at 2 and that we would expect that most nodes have 2 neighbors. Plugging that into the distribution function tells us that the propability for this case (2 neighbors) is about $27\%$, and the propability for 1 neighbor is $27\%$, $18\%$ for 3 neighbors, $9\%$ for 4 and $3\%$ for 5, and so on. According to this, a ``realistic'' network for our potential WhatsApp users might have an connection between Alice and Bob, between Bob and Charly, and Charly and Dave, leaving Alice and Dave with each one neighbour, and Bob and Charly with each two neighbors.
+
 This random network model is equivalent to an Erdős–Rényi-Model with $p = \frac{z}{n}$. Networks following the Erdős–Rényi-Model are build by creating $n$ nodes and creating each possible edge with a propability $p$. This method generates networks which have a small average distances between nodes and a low amount of clustering.
+
+In the example, there are $n = 4$ nodes. With $z = 2$ $p$ is $\frac{2}{4} = 0.5$, so we would expect half of all possible edges to exist. There are 6 possible edges in the network (this is excluding edges from a node to itself), and we chose to create 3, so our example indeed conforms perfectly to the Erdős–Rényi-Model.
 
 Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution $f(\phi): [0,1] \rightarrow [0,1]$ which must be normalized such that $\int_0^1 f(\phi) d\phi = 1$, i.e. the area beneath the propability function is 1, which means that all distributions must allocate the same total of propabilities, which makes them comparable among each other. Relating to the example, this represents the ``convincability'' of a person.
 
