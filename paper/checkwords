@@ -1,0 +1,20 @@
+#!/bin/sh
+words=`find . -name '*.tex' | xargs cat | wc -w`
+left=$((8000 - $words))
+
+params='method=getQuote&format=text&lang=en'
+url='http://api.forismatic.com/api/1.0/'
+quote=`curl -m 3 -sd "$params" "$url" | perl -pe 's/\((.+?)\)\s*$/\n\t— $1/'`
+
+echo
+echo " → have $words words"
+echo " → need $left more"
+echo
+echo "$quote"
+echo
+
+if which espeak >/dev/null; then
+    pitch=`perl -e 'print int rand 100'`
+    speed=`perl -e 'print 100 + int rand 100'`
+    espeak -p "$pitch" -s "$speed" "$quote" &
+fi

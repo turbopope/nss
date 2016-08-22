@@ -3,6 +3,7 @@ paper.pdf: paper.tex paper.bib Makefile
 	bibtex paper
 	pdflatex paper
 	pdflatex paper
+	./checkwords
 
 rebuild:
 	make realclean
@@ -24,4 +25,4 @@ clean:
 realclean: clean
 	rm -f paper.pdf
 
-.PHONY: clean realclean
+.PHONY: clean realclean checkwords
