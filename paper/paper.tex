@@ -25,6 +25,8 @@ Communication technologies, such as Skype or WhatsApp, need users to actually be
 
 One way to explain these phenomena is \emph{network cascades}. To stick with the high-level example above, assume that one person starts to use some communication technology. Then they tell their friends about it, convincing some of them to also begin using the application to communicate. Those friends to the same with their own friends, and so on and so forth. Given a suitably connected social network and a high enough ``convincability'' of its members, the usage will cascade through the entire network and eventually spread to all, or at least most, of its members. On the other hand, if the network does not have the required connectivity or if important bridge members cannot be convinced of the switch, the cascade may be halted and will not cause a global change in adoption.
 
+% TODO: At least one more example
+
 How to model these network cascades and what properties enable global cascades is the topic of the paper ``A simple model of global cascades on random networks'' by Duncan J. Watts\cite{simplemodel}. In this seminar paper, we will attempt to explain the contents of that paper in an effort to make the topic understandable to our fellow students.
 
 
@@ -39,7 +41,7 @@ The following section details Watts' simple model of network cascades\cite{simpl
 
 The model deals with a network of $n \in \mathbb{N}$ \emph{agents}. These agents are represented as nodes in a random graph. In regards to the example from section \ref{sec:motivation}, these agents represent people.
 
-Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a probability of $p_k \in [0,1]$. These edges represent the neighbors that each node observes, or in the example's terms, the person's friends.
+Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a probability of $p_k \in [0,1]$. These edges represent the neighbors that each node observes, or in the example's terms, the person's friends. %TODO: Details about network structure
 
 Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution $f(\phi): [0,1] \rightarrow [0,1]$ which must be normalized such that $\int_0^1 f(\phi) d\phi = 1$, i.e. the area beneath the propability function is 1, which means that all distributions must allocate the same total of propabilities, which makes them comparable among each other. Relating to the example, this represents the ``convincability'' of a person.
 
@@ -49,10 +51,13 @@ Now the model is simulated over a time $t$, starting with $0$. At a random point
 
 In independent random intervals, each node with state $0$ checks the state of all its neighbors. If the ratio of neighbors with states $1$ is greater than or equal to the node's threshold $\phi$, it will also change its state to $1$. This is the act of a person being ``convinced'' to begin using the application because enough of their friends are using it as well.
 
-However, an agent with state $1$ will never switch back to state $0$. This does not directly map to a concept in a real-world example, as people may stop using an application at a later time. See also section \ref{sec:threats}.
+However, an agent with state $1$ will never switch back to state $0$. This does not directly map to a concept in a real-world example, as people may stop using an application at a later time. See also section \ref{sec:threats}. % TODO: Wasn't this actually false and we misread this from the paper?
 
 
 \section{Example}\label{sec:example}
+
+
+\section{Findings}\label{sec:findings}
 
 
 \section{Threats to Validity}\label{sec:threats}
