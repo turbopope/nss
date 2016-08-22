@@ -2,27 +2,74 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 
-\acmPrice{Free* for a limited time only. Order now!}
+\acmPrice{how did this get here i am not good with computer}
 
 \begin{document}
 
 \title{Network Cascades}
+\subtitle{WattsApp With Those}
 \author{Marco Brack \and Carsten Hartenfels}
 \maketitle
 
+
 \begin{abstract}
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. \cite{simplemodel}
+Concrete.
 \end{abstract}
 
-\section{Motivation}
 
-\section{Example}
+\section{Motivation}\label{sec:motivation}
 
-\section{Modeling Network Cascades}
+Since caveman times people have been wondering how the ball gets rolling.
 
-\section{Social Applications}
+Communication technologies, such as Skype or WhatsApp, need users to actually be useful for communication between them. But how do these applications gain users in the first place then? They are mutually incompatible with each other, so surely if no one is using them, there is no reason for other people to start using them either.
 
-\section{Ongoing Research}
+One way to explain these phenomena is \emph{network cascades}. To stick with the high-level example above, assume that one person starts to use some communication technology. Then they tell their friends about it, convincing some of them to also begin using the application to communicate. Those friends to the same with their own friends, and so on and so forth. Given a suitably connected social network and a high enough ``convincability'' of its members, the usage will cascade through the entire network and eventually spread to all, or at least most, of its members. On the other hand, if the network does not have the required connectivity or if important bridge members cannot be convinced of the switch, the cascade may be halted and will not cause a global change in adoption.
+
+How to model these network cascades and what properties enable global cascades is the topic of the paper ``A simple model of global cascades on random networks'' by Duncan J. Watts\cite{simplemodel}. In this seminar paper, we will attempt to explain the contents of that paper in an effort to make the topic understandable to our fellow students.
+
+
+\par\bigskip
+
+Section \ref{sec:model} presents a simple network cascade model as laid out by Watts\cite{simplemodel}.
+
+
+\section{Model}\label{sec:model}
+
+The following section details Watts' simple model of network cascades\cite{simplemodel}. It explains the theoretical foundation and links it to the high-level example given in section \ref{sec:motivation}.
+
+The model deals with a network of $n \in \mathbb{N}$ \emph{agents}. These agents are represented as nodes in a random graph. In regards to the example from section \ref{sec:motivation}, these agents represent people.
+
+Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a probability of $p_k \in [0,1]$. These edges represent the neighbors that each node observes, or in the example's terms, the person's friends.
+
+Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution TODO with some weird integral property. Relating to the example, this represents the ``convincability'' of a person.
+
+Finally, all agents are given a state $\in \left\lbrace 0, 1 \right\rbrace$, which is initially set to $0$ for all notes. In the example's case, a state of $1$ represents a user of the communication application and a value of $0$ represents someone not using it.
+
+Now the model is simulated over a time $t$, starting with $0$. At a random point in time, the state of a single node is changed to $1$. This is analogous to the first person starting to use the application.
+
+In independent random intervals, each node with state $0$ checks the state of all its neighbors. If the ratio of neighbors with states $1$ is greater than or equal to the node's threshold $\phi$, it will also change its state to $1$. This is the act of a person being ``convinced'' to begin using the application because enough of their friends are using it as well.
+
+However, an agent with state $1$ will never switch back to state $0$. This does not directly map to a concept in a real-world example, as people may stop using an application at a later time. See also section \ref{sec:threats}.
+
+
+\section{Example}\label{sec:example}
+
+
+\section{Threats to Validity}\label{sec:threats}
+
+This section points out the possibly invalid points in Watts' paper\cite{simplemodel}, as well as the limitations with the model presented therein.
+
+One limitation already mentioned in section \ref{sec:model} is that the model only allows any agent to switch its state a single time. It also lacks states beyond the binary $0$ and $1$. These make it difficult or impossible to model cascades that involve more than a single option, such as multiple competing products.
+
+It also does not take into account relationship strength or authority. Every neighbor of a node always has the same weight and only the amount of neighbors with a certain state matters. However, this is far removed from a social network, where the persuasive power varies greatly depending on the kind of relationship between two people.
+
+Any kind of personal knowledge or observation of a global adoption rate is not taken into account either. A cascade is always started by a single node switching its state, while in reality, several people might decide to switch without their friends directly prompting them to do so.
+
+TODO: bimodality with one sample
+
+Finally, the paper itself does not have a section on threats to validity. TODO: yo dawg I heard you like to write papers so I'll cite a paper about writing papers so you can read while you write
+
+
 
 \bibliographystyle{abbrv}
 \bibliography{paper}
