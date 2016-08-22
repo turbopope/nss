@@ -41,7 +41,7 @@ The model deals with a network of $n \in \mathbb{N}$ \emph{agents}. These agents
 
 Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a probability of $p_k \in [0,1]$. These edges represent the neighbors that each node observes, or in the example's terms, the person's friends.
 
-Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution TODO with some weird integral property. Relating to the example, this represents the ``convincability'' of a person.
+Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution $f(\phi): [0,1] \rightarrow [0,1]$ which must be normalized such that $\int_0^1 f(\phi) d\phi = 1$, i.e. the area beneath the propability function is 1, which means that all distributions must allocate the same total of propabilities, which makes them comparable among each other. Relating to the example, this represents the ``convincability'' of a person.
 
 Finally, all agents are given a state $\in \left\lbrace 0, 1 \right\rbrace$, which is initially set to $0$ for all notes. In the example's case, a state of $1$ represents a user of the communication application and a value of $0$ represents someone not using it.
 
