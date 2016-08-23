@@ -1,6 +1,7 @@
 \documentclass{sig-alternate-05-2015}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage{csquotes}
 
 \acmPrice{how did this get here i am not good with computer}
 
@@ -70,7 +71,7 @@ This means that the thresholds $0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9$ all have a pr
 
 Finally, all agents are given a state $\in \left\lbrace 0, 1 \right\rbrace$, which is initially set to $0$ for all notes. In the example's case, a state of $1$ represents a user of the communication application and a value of $0$ represents someone not using it.
 
-Now the model is simulated over a time $t$, starting with $0$. At a random point in time, the state of a single node is changed to $1$. This is analogous to the first person starting to use the application.
+Now the model is simulated over a time $t$, starting with $0$. At a random point in time, the state of a single node (the seed) is changed to $1$. This is analogous to the first person starting to use the application.
 
 In independent random intervals, each node with state $0$ checks the state of all its neighbors. If the ratio of neighbors with states $1$ is greater than or equal to the node's threshold $\phi$, it will also change its state to $1$. This is the act of a person being ``convinced'' to begin using the application because enough of their friends are using it as well.
 
@@ -80,6 +81,13 @@ In the example with Alice and the others, we apply the first propability distrib
 
 
 \section{Example}\label{sec:example}
+
+
+\section{Cascade Condition}\label{sec:section}
+
+Watts claims that global cascades are only possible if \textquote{the largest vulnerable cluster percolates}. This is called the \emph{cascade condition}.
+
+A node is vulnerable if its threshold is low enough so that only one of it's neighbors needs to switch state for it to switch state itslef. Such nodes can be thought of as ``early adopters'' of a technology, with the initial seed beeing an ``innovator''. A vulerable cluster is a connected set of nodes that all switch state if a contained ``early adopter'' adjacent to an ``innovator'' switches its state. This cluster must span a sufficiently (Watts never explicitly states what ``sufficient'' in this case means) large portion of the network (percolate) for the cascade condition to be true.
 
 
 \section{Findings}\label{sec:findings}
