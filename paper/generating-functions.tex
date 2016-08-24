@@ -1,0 +1,73 @@
+
+
+
+
+
+Example for an Propability Generating Function: The PGF for a dice throw:
+
+\begin{equation*}
+\begin{split}
+P(x)\\
+&= 0x^0 + \frac{1}{6}x^1 + \frac{1}{6}x^2 + \frac{1}{6}x^3 + \frac{1}{6}x^4 + \frac{1}{6}x^5 + \frac{1}{6}x^6\\
+&= \sum_{eyes=1}^{6}\frac{1}{6}x^{eyes}
+\end{split}
+\end{equation*}
+
+The coefficients of $x^eyes$ are the propability for $eyes$ as the result of the dice-throw. For a PGF, if $x=1$, the PGF must equal to $0$:
+
+\begin{equation*}
+\begin{split}
+P(X)\\
+&= \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6}\\
+&= 1
+\end{split}
+\end{equation*}
+
+For another example let's express the degree-distibution of a network with a poisson-distribution with the peak at $z = 5$ neighbors.
+
+\begin{multline*}
+\begin{split}
+P(x)\\
+= \sum_{k=0}^{\infty}\frac{e^{-5}5^k}{k!}x^k\\
+= 0x^0 + 0.003x^1 + 0.036x^2 + 0.101x^3 + 0.156x^4\\
+    + 0.175x^5 + 0.161x^6 + 0.128x^7 + 0.092x^8 + \ldots
+\end{split}
+\end{multline*}
+
+The PGF condition is true (\url{http://tinyurl.com/gnemae8}):
+
+\begin{multline*}
+\begin{split}
+P(1)\\
+= \sum_{k=0}^{\infty}\frac{e^{-5}5^k}{k!}\\
+= 0 + 0.003 + 0.036 + 0.101 + 0.156 + 0.175\\
+    + 0.161 + 0.128 + 0.092 + \ldots\\
+= 1
+\end{split}
+\end{multline*}
+
+Generally, if you plug in 1 into a generating function some dark magic happens and you suddenly can extract some information.
+
+``Deriving a PGF yields its \emph{moments}'': The first derivation or moment is the expectation value of the PGF. I do not know about other moments. For a PGF with a Poisson Distribution:
+
+\begin{align*}
+  P(x) &= \sum_{k=0}^{\infty}\frac{e^{-\lambda}\lambda^k}{k!}x^k = e^{-\lambda}e^{\lambda x}\\
+  P'(x) &= \lambda e^{-\lambda}e^{\lambda x}\\
+  P''(x) &= \lambda^2 e^{-\lambda}e^{\lambda x}
+\end{align*}
+
+\begin{align*}
+  P(1) &= \sum_{k=0}^{\infty}\frac{e^{-\lambda}\lambda^k}{k!}x^k = e^{-\lambda}e^{\lambda} = 1\\
+  P'(1) &= \lambda e^{-\lambda}e^{\lambda} = \lambda\\
+  P''(1) &= \lambda^2 e^{-\lambda}e^{\lambda} = \lambda^2
+\end{align*}
+
+Thus the expectation value is $E(K) = \lambda$. We can also calculate the variance\footnote{The proof for this formula is given here as equation 6.3: \url{https://www.cl.cam.ac.uk/teaching/0708/Probabilty/prob06.pdf}}:
+
+\begin{equation*}
+\begin{split}
+  V(K) &= P''(1) + P'(1) - P'(1)^2\\
+       &= \lambda^2 + \lambda - \lambda^2\\
+       &= \lambda
+\end{split}
+\end{equation*}
