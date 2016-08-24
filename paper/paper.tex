@@ -58,14 +58,14 @@ Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary r
 
 The integral restriction is more easily understandable in a discrete case. For our WhatsApp example, we define the following discrete propability distribution:
 
-$
+$$
 f(\phi) =
   \begin{cases}
     0 & \phi \in \{0, 1\} \\
     0.1 & \phi \in \{0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9\} \\
     0.2 & \phi \in \{0.5\}
   \end{cases}
-$
+$$
 
 This means that the thresholds $0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9$ all have a propability of $10\%$ to be chosen, the threshold $0.5$ has a chance of $20\%$, and 0 and 1 will not be chosen at all. In contrast, we could assign a propability of $100\%$ to the threshold 0 and $0\%$ to all other thresholds and would still conform to the integral restriction.
 
@@ -88,6 +88,72 @@ In the example with Alice and the others, we apply the first propability distrib
 Watts claims that global cascades are only possible if \textquote{the largest vulnerable cluster percolates}. This is called the \emph{cascade condition}.
 
 A node is vulnerable if its threshold is low enough so that only one of it's neighbors needs to switch state for it to switch state itslef. Such nodes can be thought of as ``early adopters'' of a technology, with the initial seed beeing an ``innovator''. A vulerable cluster is a connected set of nodes that all switch state if a contained ``early adopter'' adjacent to an ``innovator'' switches its state. This cluster must span a sufficiently (Watts never explicitly states what ``sufficient'' in this case means) large portion of the network (percolate) for the cascade condition to be true.
+
+Through some generating functions black magic Watts expresses this cascade condition analytically. A cascade is possible if:
+
+\begin{equation}
+  G_0''(1) = \sum_{k=0}^\infty k (k-1) \rho_k p_k > z
+\end{equation}
+
+Let's break that down:
+
+\begin{itemize}
+  \item $\sum_{k=0}^\infty$: We iterate over all possible thresholds $k$ from $0$ to infinity. The sum converges and in reality it is possible to only calculate the ``first few'' elements
+  \item $k (k-1)$ Nevermind that. These are remainders of the generating functions black magic.
+  \item $\rho_k$ The propability that a node with degree k is vulerable (according to a propability distribution)
+  \item $p_k$ The propability that a node has the threshold $k$ (according to a propability distribution)
+\end{itemize}
+
+In summary, for given propability distributions for both node degree and node threshold, the cascade condition inequation tells us if a vulnerable cluster percolates the network, meaning that global cascades are possible.
+
+To illustrate this, let's choose those distributions and see what happens. We'll construct a uniform graph with a homogenous threshold. Uniform graphs have a poisson degree distribution $p_k = \frac{e^{-z}z^k}{k!}$ with $z$ being the mean (the peak) of the distribution. The fixed threshold is easily modeled: The propability for a node being vulnerable is $\rho_k = P(\phi \leq \frac{1}{k})$, but since $\phi$ (the threshold) in this case is fixed, we just need to use $1$ for $\phi \leq \frac{1}{k}$ and $0$ for $\phi > \frac{1}{k}$ (and $1$ for $k = 0$).
+
+For instance, let's see if cascades are possible for a fixed threshold $\phi = 0.2$ and a poisson-distributed degree with mean $z = 2$:
+
+\begin{table}[h!]
+\centering
+\caption{Uniform graph with $\phi = 0.2$ and $z = 2$}
+\label{lolol}
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+\hline
+$k$                       & 0     & 1      & 2     & 3      & 4      & 5      & 6     & \ldots\\ \hline
+$\rho_k$                  & 1     & 1      & 1     & 1      & 1      & 1      & 0     & \ldots\\ \hline
+$p_k$                     & .135  & .271   & .271  & .18    & .09    & .036   & .012  & \ldots\\ \hline
+$k (k-1) \rho_k p_k$  & 0     & 0      & .541  & 1.083  & 1.083  & 0.722  & 0     & \ldots\\ \hline
+\end{tabular}
+\end{table}
+
+The sum of the last row is $\sum_{k=0}^\infty k (k-1) \rho_k p_k = 3.428$, which is greater than $z = 2$, so cascades are possible in this case.
+
+To put this in contrast, let's examine the case of $\phi = 0.2$ and $z = 10$:
+
+\begin{table}[h!]
+\centering
+\caption{Uniform graph with $\phi = 0.2$ and $z = 8$}
+\label{lolol}
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+\hline
+$k$                       & 0  & 1     & 2     & 3     & 4     & 5      & 6     & \ldots\\ \hline
+$\rho_k$                  & 1  & 1     & 1     & 1     & 1     & 1      & 0     & \ldots\\ \hline
+$p_k$                     & 0  & .003  & .011  & .029  & .057  & .092   & .122  & \ldots\\ \hline
+$k (k-1) \rho_k p_k$  & 0  & 0     & .021  & .172  & .687  & 1.832  & 0     & \ldots\\ \hline
+\end{tabular}
+\end{table}
+
+Here the sum of the last row is $\sum_{k=0}^\infty k (k-1) \rho_k p_k = 2.712$, which is smaller than $z = 8$, so no cascades will occur.
+
+Watts tested this condition for these distributions for $z$ from $20$ to $0$ and $\phi$ from $0.1$ to $0.3$. Figure \ref{fig:cascade-window} depicts the results as a phase transition diagram (dashed line).
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/cascade-regimes.png}
+  \caption{Cascade Window}
+  \label{fig:cascade-window}
+\end{figure}
+
+There are two areas in this diagram: One in which cascades are possible for the combination of $z$ and $\phi$ and one where no cascades are possible. It becomes apparent that there are two important transitions or ``boundaries'': One at an average degree $z = 1$ independent of the threshold, and one whith high average degrees and low threshold, with increasing threshold as the average degree decreases.
+
+The dotted line in the diagram is the result of empirical testings where random networks where generated for the same distributions and the two parameters and tested, i.e. simulated. It is obvious that the calculated and the empirical phase transitions align (with reasonable precision), which validates the cascade condition inequation.
 
 
 \section{Findings}\label{sec:findings}
