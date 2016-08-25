@@ -148,6 +148,8 @@ Different outcomes could have been possible as well, if a different node were ch
 
 Watts claims that global cascades are only possible if \textquote{the largest vulnerable cluster percolates}. This is called the \emph{cascade condition}.
 
+That is, a successful cascade is only possible, if the graph's largest connected cluster of agents changes its state to $1$. This is only a necessary condition however: if the cascade condition is not fulfilled, a successful cascade is impossible, but a fulfilled cascade condition does not guarantee a successful cascade.
+
 A node is vulnerable if its threshold is low enough so that only one of its neighbors needs to switch state for it to switch state itslef. Such nodes can be thought of as ``early adopters'' of a technology, with the initial seed beeing an ``innovator''. A vulerable cluster is a connected set of nodes that all switch state if a contained ``early adopter'' adjacent to an ``innovator'' switches its state. This cluster must span a sufficiently (Watts never explicitly states what ``sufficient'' in this case means) large portion of the network (percolate) for the cascade condition to be true.
 
 Through some generating functions black magic Watts expresses this cascade condition analytically. A cascade is possible if:
