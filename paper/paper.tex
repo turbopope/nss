@@ -215,7 +215,7 @@ Watts tested this condition for these distributions for $z$ from $20$ to $0$ and
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.45\textwidth]{img/cascade-regimes.png}
+  \includegraphics[width=0.45\textwidth]{img/cascade-regimes-with-cross-section.png}
   \caption{Cascade Window, image from \cite{simplemodel}}
   \label{fig:cascade-window}
 \end{figure}
@@ -223,6 +223,27 @@ Watts tested this condition for these distributions for $z$ from $20$ to $0$ and
 There are two areas in this diagram: One in which cascades are possible for the combination of $z$ and $\phi$ and one where no cascades are possible. It becomes apparent that there are two important transitions or ``boundaries'': One at an average degree $z = 1$ independent of the threshold, and one whith high average degrees and low threshold, with increasing threshold as the average degree decreases.
 
 The dotted line in the diagram is the result of empirical testings where random networks where generated for the same distributions and the two parameters and tested, i.e. simulated. It is obvious that the calculated and the empirical phase transitions align (with reasonable precision), which validates the cascade condition inequation.
+
+The cascade window diagram is limited to a binary statement wether cascades are possible. To gain further insight on the the nature of cascades inside the window, Watts examined ``cross section'' of the window for $\phi=0.18$ (marked in firgure \ref{fig:cascade-window} with by the densely stroked line at $\phi=0.18$), consisting of serveral measurements. They are depicted in figure \ref{fig:cross-section}. The upper graph (a) maps from $z$ to the amount of steps required for the cascade to occur. The lower figure (b) maps from $z$ to various percentages.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.45\textwidth]{img/cross-section.png}
+  \caption{Cross section of the cascade window at $\phi=0.18$, image from \cite{simplemodel}}
+  \label{fig:cross-section}
+\end{figure}
+
+There are 6 graphs here:
+
+\begin{itemize}
+  \item \textbf{Solid Circles \& Solid Line} -- These are optically very hard to distinguish from another, as they are virtually equal. They form the ``upper graph'' in the figure. The former shows the average size of global cascades and the latter shows the (analytical) size of the largest connected component, both as a fraction of the whole network.
+  \item \textbf{Open Circles} -- Frequency of global cascades. Forms the ``middle graph''.
+  \item \textbf{Short Dashes} -- Fractional (to the size of the network) size of the extended vulnerable cluster. The extended vulnerable cluster comprises the vulnerable cluster plus it's direct neighbors. Forms the ``middle graph''.
+  \item \textbf{Long Dashes} -- The fractional (to the size of the network) size of the vulnerable cluster according to an analytical formula derived by Watts in the text. Forms the ``lower graph''.
+  \item \textbf{Crosses} -- The fractional (to the size of the network) size of the vulnerable cluster, empirically determined by simulation. Forms the ``lower graph''.
+\end{itemize}
+
+Refer to section \ref{sec:findings} for Watts' interpretation of these graphs.
 
 
 \section{Findings}\label{sec:findings}
