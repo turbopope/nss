@@ -103,7 +103,7 @@ Figure \ref{fig:model1} shows the initial state of the graph at $t = 0$. Each ag
     \label{fig:model1}
 \end{figure}
 
-In this configuration, nothing actually occurs yet however, since all states are $0$. All agents do periodically check their neighbors and calculate if they should change their own state, but of course this always results in no change. To actually begin the simulation proper, we change the state of one node to $1$ at a random point in time. The new state can be seen in figure \ref{fig:model2}.
+In this configuration, nothing actually occurs yet however, since all states are $0$. All agents do periodically check their neighbors and calculate if they should change their own state, but of course this always results in no change. To actually begin the simulation proper, we must create the initial impulse. That is, we change the state of one node to $1$ at a random point in time. In this case, we have chosen the node with threshold $\phi = 1$. The new state can be seen in figure \ref{fig:model2}.
 
 \begin{figure}[h!]
     \includegraphics[width=\columnwidth]{../presentation/img/model5}
@@ -230,10 +230,9 @@ It also does not take into account relationship strength or authority. Every nei
 
 Any kind of personal knowledge or observation of a global adoption rate is not taken into account either. A cascade is always started by a single node switching its state, while in reality, several people might decide to switch without their friends directly prompting them to do so.
 
-TODO: bimodality with one sample
+The bimodality mentioned in \ref{sec:findings} does not have a significant sample size. In fact, there is only a single example of a large example occurring. Calling the distribution bimodal due to a single result like that may be a stretch. Instead, more experiments should have been conducted to either rule the sample out as a fluke or confirm bimodality through more large samples appearing.
 
-Finally, the paper itself does not have a section on threats to validity. TODO: yo dawg I heard you like to write papers so I'll cite a paper about writing papers so you can read while you write
-
+Finally, the paper itself does not have a section on threats to validity, despite it being recommended for research design\cite{yodawg}.
 
 
 \bibliographystyle{abbrv}
