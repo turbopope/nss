@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{csquotes}
+\usepackage{hyperref}
 
 \acmPrice{how did this get here i am not good with computer}
 
@@ -35,6 +36,8 @@ How to model these network cascades and what properties enable global cascades i
 
 Section \ref{sec:model} presents a simple network cascade model as laid out by Watts\cite{simplemodel}.
 
+In section \ref{sec:example}, a walk-through of a simulation of a simple graph is given.
+
 
 \section{Model}\label{sec:model}
 
@@ -46,9 +49,14 @@ Relating this to the example, this might mean that Alice, Bob, Charly and Dave a
 
 Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a probability of $p_k \in [0,1]$. These edges represent the neighbors that each node observes, or in the example's terms, the person's friends. $p_k$ is poisson-distributed: $p_k = \frac{e^{-z}z^k}{k!}$, with $z = \left<k\right>$ being the expectation-value of $p_k$ (the average degree).
 
-In our example, we choose $z$ to be 2. This means that the graph of the degree distribution for $p_k$ has its peak at 2 and that we would expect that most nodes have 2 neighbors. Plugging that into the distribution function tells us that the probability for this case (2 neighbors) is about $27\%$, and the probability for 1 neighbor is $27\%$, $18\%$ for 3 neighbors, $9\%$ for 4 and $3\%$ for 5, and so on. According to this, a ``realistic'' network for our potential WhatsApp users might have an connection between Alice and Bob, between Bob and Charly, and Charly and Dave, leaving Alice and Dave with each one neighbour, and Bob and Charly with each two neighbors.
+In our example, we choose $z$ to be 2. This means that the graph of the degree distribution for $p_k$ has its peak at 2 and that we would expect that most nodes have 2 neighbors. Plugging that into the distribution function tells us that the probability for this case (2 neighbors) is about $27\%$, and the probability for 1 neighbor is $27\%$, $18\%$ for 3 neighbors, $9\%$ for 4 and $3\%$ for 5, and so on. According to this, a ``realistic'' network for our potential WhatsApp users might have an connection between Alice and Bob, between Bob and Charly, and Charly and Dave, leaving Alice and Dave with each one neighbour, and Bob and Charly with each two neighbors. Figure \ref{fig:abcd} shows the graph for this setup.
 
-%TODO: Image
+\begin{figure}[h!]
+    \includegraphics[width=\columnwidth]{img/abcd}
+    \centering
+    \caption{Alice, Bob, Charly and Dave}
+    \label{fig:abcd}
+\end{figure}
 
 This random network model is equivalent to an Erdős–Rényi-Model with $p = \frac{z}{n}$. Networks following the Erdős–Rényi-Model are build by creating $n$ nodes and creating each possible edge with a probability $p$. This method generates networks which have a small average distances between nodes and a low amount of clustering.
 
@@ -81,6 +89,59 @@ In the example with Alice and the others, we apply the first probability distrib
 
 
 \section{Example}\label{sec:example}
+
+While the previous sections dealt with examples on an abstract level, this section walks through a detailed example of the actual model in action.
+
+To keep the example from being overly long, we will use $n = 5$ agents. However, we have also built a simulation application\footnote{The application can be found at \url{https://github.com/turbopope/nss/tree/master/simulator}.}, which can be used to view examples in motion, with many more agents than we could fit into this paper.
+
+Figure \ref{fig:model1} shows the initial state of the graph at $t = 0$. Each agent has its threshold set to a randomly chosen value and its state set to $0$.
+
+\begin{figure}[h!]
+    \includegraphics[width=\columnwidth]{../presentation/img/model4}
+    \centering
+    \caption{Initial State at $t = 0$}
+    \label{fig:model1}
+\end{figure}
+
+In this configuration, nothing actually occurs yet however, since all states are $0$. All agents do periodically check their neighbors and calculate if they should change their own state, but of course this always results in no change. To actually begin the simulation proper, we change the state of one node to $1$ at a random point in time. The new state can be seen in figure \ref{fig:model2}.
+
+\begin{figure}[h!]
+    \includegraphics[width=\columnwidth]{../presentation/img/model5}
+    \centering
+    \caption{State after the initial impulse}
+    \label{fig:model2}
+\end{figure}
+
+As the simulation keeps going, eventually the neighboring node with $\phi = 0.1$ will inspect its neighbors and notice the change. It has $4$ neighbors, of which $1$ is in state $1$. That means it compares $\frac{1}{4}$ to its own threshold of $0.1$. Since the calculated value is above the threshold, the node will change its own state to $1$. The new state of the network can be seen in figure \ref{fig:model3}.
+
+\begin{figure}[h!]
+    \includegraphics[width=\columnwidth]{../presentation/img/model6}
+    \centering
+    \caption{State after the second adoption}
+    \label{fig:model3}
+\end{figure}
+
+There are also examples in which the state of the network does not change. For instance, if the node with threshold $\phi = 0.8$ checks its surroundings at this point, it will see that $1$ of its $3$ neighbors is in state $1$. However, since $\frac{1}{3}$ is below its own threshold of $0.8$, the node's state remains in state $0$.
+
+Next, we will look at the node with threshold $\phi = 0.5$. It has $3$ neighbors, of which $2$ have already changed their state. Since $\frac{2}{3} > 0.5$, the node also changes its state and the graph's state looks like in figure \ref{fig:model4}.
+
+\begin{figure}[h!]
+    \includegraphics[width=\columnwidth]{../presentation/img/model7}
+    \centering
+    \caption{State after the third adoption}
+    \label{fig:model4}
+\end{figure}
+
+As should be obvious by now, the final two nodes will also change their state at this point. First the node with $\phi = 0.5$ and finally the node with $\phi = 0.8$. At that point, the entire network is in a stable, unchanging state, as can be seen in figure \ref{fig:model5}. Since the entire network has changed its state to a uniform $1$, the cascade successfully worked its way from a single impulse to covering the entire network.
+
+\begin{figure}[h!]
+    \includegraphics[width=\columnwidth]{../presentation/img/model9}
+    \centering
+    \caption{Final state -- successful cascade}
+    \label{fig:model5}
+\end{figure}
+
+Different outcomes could have been possible as well, if a different node were chosen for the initial impulse. For instance, if the agent with $\phi = 0.1$ had been chosen, none of its neighbors would have had a low enough threshold to change their state at all. In that case, the system would have also entered a stable state, but the cascade would have failed to progress through the network.
 
 
 \section{Cascade Condition}\label{sec:section}
