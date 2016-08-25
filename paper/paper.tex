@@ -87,6 +87,12 @@ However, an agent with state $1$ will never switch back to state $0$. This does 
 
 In the example with Alice and the others, we apply the first probability distribution from above. Let us say that Alice and Bob are assigned a threshold of $\phi_{Alice} = \phi_{Bob} = 0.5$ (for which the probability is $20\%$), Charly is assigned $\phi_{Charly} = 0.3$ and Dave $\phi_{Dave} = 0.9$. This means that Dave is very hard to ``convince'', at least $90\%$ of his neighbors must use WhatsApp before he decides to use it (switch his state to $1$), whereas Charly already switches if only $30\%$ of his neighbors adopt the technology. Since Dave has only 1 neighbor, Charly, he switches as soon as Charly switches (in this case, $100\%$ of his neighbors would have switched). Dave has two neighbors, Bob and Dave, but only needs $30\%$ to switch, so it suffices if either Bob or Dave switch (that would be $50\%$ of his neighbors).
 
+The model is then simulated over time until a steady state is reached. That is, the point where the entire system is stable and no agent will ever change its state again. The case of a steady state is easily verifiable: if all agents have observed their neighbors at least once since the last time any agent changed its state, then further observations will always lead to the same repeated result of no agent changing its state anymore. At this point, the simulation is finished.
+
+After the simulation is done, there can be two results: either the experiment was successful and a global cascade has occurred, or the experiment has failed and the cascade was too small to be considered global.
+
+What exactly constitutes as a successful global cascade is defined by $\frac{\textmd{Number of agents}}{\textmd{Agents in state } 1} \geq T$, where $T \in [0, 1]$ is some arbitrarily chosen threshold value. For example, $T = 1$ would require every last agent to have changed its state to $1$, which is difficult to achieve in a large random graph. A value like $T = 0.9$ would only require a 90\% majority, but still intuitively result in a cascade that was ``sufficiently global''.
+
 
 \section{Example}\label{sec:example}
 
