@@ -255,6 +255,8 @@ Further insights on the cascade window can be gained by examining the size of ca
 
 In the above section \ref{fig:cross-section} was introduced as a means to compare the properties of the cascade window for a given threshold. Watts' interpretation of the results is as follows:
 
+% TODO: Explanation of the cascade window boundaries/regimes
+
 There is an obvious relation of the frequency of global cascades (open circles, in the middle) to the relative size of the vulnerable cluster (long dashes and crosses, the lower two graphs). They are roughly proportional, but the size of the cluster ``underestimates'' the cascade frequency. The given explanation for this is, that agents directly adjacent do the vulnerable cluster (who are themselves not vulnerable) can still trigger further cascades or promote the expansion of a cascade in the latter state of the cascade when most of it's vulnerable neighbors have been switched. This explanation is validated by examining the size of the extended vulnerable cluster, which comprises the vulnerable cluster plus its immediate (stable) neighbor nodes. And indeed the plot for the extended vulnerable cluster (short dashes, in the middle) is virtually equal to the cascade frequency, thus validating the explanation.
 
 The average size of global cascades (solid line and solid circles, the upper graphs) is obviously not related to the size of the vulnerable cluster or the extended vulnerable cluster, since it does not decline with decreasing sizes for greater values of $z$. It is only governed by the $z$, i.e. the connectivity of the whole network. The raltionship between connectivity and cascade size is further examined below, using figure \ref{fig:cascade-size}. The intuition that with decresing size of the vulnerable cluster (to which the cascade is limited) the size of cascades should also decrease is false. Although unable to give a defititive explanation, Watts tries to explain this phenomenon: In the later stages of the cascade, the cascade has switched a lot of vulnerable nodes to $1$. In this situation it is possible that stable nodes, i.e. nodes that need more than one neighbor switching to switch themselves, have multiple switched adjacent vulnerable nodes and now do switch. This process could repeat itself until the entire connected component to which the vlunerable cluster belongs might be switched. Watts did not investigate in this paper if this phenomenon only occurs in the examinded class of random graphs or if it also appears in other random graphs.
@@ -298,6 +300,10 @@ Finally, the paper itself does not have a section on threats to validity, despit
 
 
 \section{Summary}\label{sec:summary}
+
+In his paper, Watts introduced a network-theoretical model to explain the occurrance of network cascades. The model is analyzed analytically and empirically and at least for some graph classes conditions for cascades are found. There are two so called regimes of these conditions: One where average degree of the network is low and the threshold is unimportant. Here the cascade size exhibits a power law distribution. As the average degree increases, the threshold under the fraction of neighboring activated nodes must lie must decrease in order to retain vulnerability, and thus becomes the limiting factor. Here the distribution of the cascade size is bimodal, with many small cascades and some very large cascades. Also further effects of network properties are examined.
+
+We motivated this model and explained it in detail. The mathematical details of the analysis have been intentionally left out, but its general approach was shown with more complementary explanations to the derived figures in Watts' paper. Finally, Watts' findings and their interpretation have been reported on.
 
 
 \bibliographystyle{abbrv}
