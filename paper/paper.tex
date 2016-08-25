@@ -227,6 +227,19 @@ The dotted line in the diagram is the result of empirical testings where random 
 
 \section{Findings}\label{sec:findings}
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\columnwidth]{img/cascade-size}
+  \caption{Cascade Size, image from \cite{simplemodel}. $n = 1000$, squares and solid line use $z = 6.14$, circles and dashed line use $z = 1.05$.}
+  \label{fig:cascade-size}
+\end{figure}
+
+Figure \ref{fig:cascade-size} shows the cumulative distribution of the cascade sizes. The size of a cascade is measured in terms of the ratio between agents in state $1$ to the total number of agents.
+
+At the lower boundary of the cascade window, with $z = 1.05$, the curve resembels a power law distribution (note the logarithmic axes). This distribution is very similar to avalances in self-organized criticality models (TODO $wat$). This distribution can be explained by most nodes being vulnerable given the low value of $z$, so cascades can spread to neighbors very easily. The constraining factor is the connectivity of the network, that is, missing connections inhibit the cascade's progressions, not a high convincability threshold of agents.
+
+On the other hand, the upper boundary behaves the opposite. With $z = 6.14$, the limiting factor is the large amounts of neighbors and the resulting difficulty in overcoming an individual node's threshold. Connectivity in turn is not a problem anymore, since the large amount of neighbors also gives the graph a high degree of connectivity. This leads to the distribution being very bottom-heavy, with most of the cascades failing at an early stage, since only a small amount of surrounding vulnerable agents can be convinced to switch their state. In the rare case (really just one case, see section \ref{sec:threats}) that the cascade actually manages to infect the largest vulnerable cluster, a large global cascade that converts a majority of agents is likely. This leads to a bimodal distribution, i.e. it peaks at low values, is reduced to zero in the middle and then (sort of) peaks again at large values.
+
 
 \section{Threats to Validity}\label{sec:threats}
 
