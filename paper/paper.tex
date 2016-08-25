@@ -152,7 +152,7 @@ As should be obvious by now, the final two nodes will also change their state at
 Different outcomes could have been possible as well, if a different node were chosen for the initial impulse. For instance, if the agent with $\phi = 0.1$ had been chosen, none of its neighbors would have had a low enough threshold to change their state at all. In that case, the system would have also entered a stable state, but the cascade would have failed to progress through the network.
 
 
-\section{Cascade Condition}\label{sec:section}
+\section{Analysis of the Model}\label{sec:analysis}
 
 Watts claims that global cascades are only possible if \textquote{the largest vulnerable cluster percolates}. This is called the \emph{cascade condition}.
 
@@ -173,6 +173,7 @@ Let us break that down:
   \item $k (k-1)$ Nevermind that. These are remainders of the generating functions black magic.
   \item $\rho_k$ The probability that a node with degree k is vulerable (according to a probability distribution)
   \item $p_k$ The probability that a node has the threshold $k$ (according to a probability distribution)
+  \item $G_0''(1)$ Treat this as an alias for the sum term. It is actually the solution for $x = 1$ of the second derivative of the generating function for the distribution of vulnerable nodes (which is $G_0(x) = \sum_k \rho_kp_kx^k$; the derivative-relationship is clearly visible)
 \end{itemize}
 
 In summary, for given probability distributions for both node degree and node threshold, the cascade condition inequation tells us if a vulnerable cluster percolates the network, meaning that global cascades are possible.
@@ -274,7 +275,7 @@ On the other hand, the upper boundary behaves the opposite. With $z = 6.14$, the
 
 \section{Related Work}
 
-The mathematical basis for the calculations in section \ref{sec:cascade-condition} about the cascade condition is formed by genrating functions (hence the name $G_0''(1)$ for the condition). Generating functions are a convenient tool to express series of numbers in a concise fashion. Applied to propability distributions, they allow for a convenient examination of that distribution.
+The mathematical basis for the calculations in section \ref{sec:analysis} about the cascade condition is formed by genrating functions (hence the name $G_0''(1)$ for the condition). Generating functions are a convenient tool to express series of numbers in a concise fashion. Applied to propability distributions, they allow for a convenient examination of that distribution.
 
 An introduction to generating functions can be found in \cite{wilf1994generatingfunctionology} (this version of the book is referenced by Watts et. al. in his paper below).
 
