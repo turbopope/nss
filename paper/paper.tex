@@ -288,9 +288,11 @@ Similarly distributed results can be observed in networks that vary in their dis
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\columnwidth]{img/dunnolol}
-  \caption{A confusing graph, image from \cite{simplemodel}.}
-  \label{fig:heterogenity}
+  \caption{Effect of connectivity, image from \cite{simplemodel}. The solid line uses a Poisson distribution, while the dashed line uses a power law distribution of connections.}
+  \label{fig:dunnolol}
 \end{figure}
+
+The same goes for a change in connectivity distribution, as can be seen in figure \ref{fig:dunnolol}. A uniform Poisson distribution has a higher rate of cascades than a power-law distributed graph. This can be explained by the compound effects from before. In a power law distribution, there are pockets of low connectivity, where it impedes the progress of the cascade. There are also pockets of high connectivity, leading to nodes with many neighbors, which makes reaching their neighbor threshold difficult.
 
 
 \section{Threats to Validity}\label{sec:threats}
