@@ -36,9 +36,13 @@ How to model these network cascades and what properties enable global cascades i
 
 \par\bigskip
 
-Section \ref{sec:model} presents a simple network cascade model as laid out by Watts\cite{simplemodel}.
+Section \ref{sec:model} presents a simple network cascade model as laid out by Watts\cite{simplemodel}. This is followed by a walk-through if a full simulation in section \ref{sec:example}.
 
-In section \ref{sec:example}, a walk-through of a simulation of a simple graph is given.
+In section \ref{sec:analysis}, the model is analyzed in regards to the possibility condition of global cascades. Section \ref{sec:findings} inspects the further results from Watts' research.
+
+Section \ref{sec:threats} lists limitations and threats to validity of the original paper by Watts, which we discovered while compiling this work.
+
+Finally, section \ref{sec:related-work} shows related work and section \ref{sec:summary} concludes the seminar paper's results.
 
 
 \section{Model}\label{sec:model}
@@ -289,15 +293,6 @@ Similarly distributed results can be observed in networks that vary in their dis
 \end{figure}
 
 
-\section{Related Work}
-
-The mathematical basis for the calculations in section \ref{sec:analysis} about the cascade condition is formed by generating functions (hence the name $G_0''(1)$ for the condition). Generating functions are a convenient tool to express series of numbers in a concise fashion. Applied to probability distributions, they allow for a convenient examination of that distribution.
-
-An introduction to generating functions can be found in \cite{wilf1994generatingfunctionology} (this version of the book is referenced by Watts et. al. in his paper below).
-
-A slightly different and more basic version of the approach to finding an analytical cascade condition is described by Watts and his co-authors in \cite{newman2001random}. They use generating functions to express the degree distribution of arbitrary networks and then analyze for component sizes, average component sizes and the phase transition between going from a largely unconnected network to a network that is mostly one single connected component (the ``giant component'', in terms of the paper). One can easily see, although this is only a very high level description of the paper's contents, that there are striking parallels to this paper about network cascades. They also go a bit further and analyze for the asymptotic form of the cluster size distribution, the number of neighbors and the average path length.
-
-
 \section{Threats to Validity}\label{sec:threats}
 
 This section points out the possibly invalid points in Watts' paper\cite{simplemodel}, as well as the limitations with the model presented therein.
@@ -313,7 +308,16 @@ The bimodality mentioned in \ref{sec:findings} does not have a significant sampl
 Finally, the paper itself does not have a section on threats to validity, despite it being recommended for research design\cite{yodawg}.
 
 
-\section{Summary}\label{sec:summary}
+\section{Related Work}\label{sec:related-work}
+
+The mathematical basis for the calculations in section \ref{sec:analysis} about the cascade condition is formed by generating functions (hence the name $G_0''(1)$ for the condition). Generating functions are a convenient tool to express series of numbers in a concise fashion. Applied to probability distributions, they allow for a convenient examination of that distribution.
+
+An introduction to generating functions can be found in \cite{wilf1994generatingfunctionology} (this version of the book is referenced by Watts et. al. in his paper below).
+
+A slightly different and more basic version of the approach to finding an analytical cascade condition is described by Watts and his co-authors in \cite{newman2001random}. They use generating functions to express the degree distribution of arbitrary networks and then analyze for component sizes, average component sizes and the phase transition between going from a largely unconnected network to a network that is mostly one single connected component (the ``giant component'', in terms of the paper). One can easily see, although this is only a very high level description of the paper's contents, that there are striking parallels to this paper about network cascades. They also go a bit further and analyze for the asymptotic form of the cluster size distribution, the number of neighbors and the average path length.
+
+
+\section{Conclusion}\label{sec:summary}
 
 In his paper, Watts introduced a network-theoretical model to explain the occurrance of network cascades. The model is analyzed analytically and empirically and at least for some graph classes conditions for cascades are found. There are two so called regimes of these conditions: One where average degree of the network is low and the threshold is unimportant. Here the cascade size exhibits a power law distribution. As the average degree increases, the threshold under the fraction of neighboring activated nodes must lie must decrease in order to retain vulnerability, and thus becomes the limiting factor. Here the distribution of the cascade size is bimodal, with many small cascades and some very large cascades. Also further effects of network properties are examined.
 
