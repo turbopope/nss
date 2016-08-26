@@ -272,6 +272,22 @@ At the lower boundary of the cascade window, with $z = 1.05$, the curve resembel
 
 On the other hand, the upper boundary behaves the opposite. With $z = 6.14$, the limiting factor is the large amounts of neighbors and the resulting difficulty in overcoming an individual node's threshold. Connectivity in turn is not a problem anymore, since the large amount of neighbors also gives the graph a high degree of connectivity. This leads to the distribution being very bottom-heavy, with most of the cascades failing at an early stage, since only a small amount of surrounding vulnerable agents can be convinced to switch their state. In the rare case (really just one case, see section \ref{sec:threats}) that the cascade actually manages to infect the largest vulnerable cluster, a large global cascade that converts a majority of agents is likely. This leads to a bimodal distribution, i.e. it peaks at low values, is reduced to zero in the middle and then (sort of) peaks again at large values.
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\columnwidth]{img/heterogenity}
+  \caption{Effect of heterogenity on cascade size, image from \cite{simplemodel}. The $\phi$ are normally distribute width a standard derivation of $\sigma$.}
+  \label{fig:heterogenity}
+\end{figure}
+
+Similarly distributed results can be observed in networks that vary in their distribution of $\phi$ and $p_k$, but the exact results differ in quantity. Figure \ref{fig:heterogenity} shows that increasing the variation of thresholds in the network also increases the likelihood of cascades. Using identical, homogenous thresholds for all agents yields the most stable system, while increasing the derivation and giving the nodes differing thresholds consistently decreases this stability, enabling more successful cascades.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\columnwidth]{img/dunnolol}
+  \caption{A confusing graph, image from \cite{simplemodel}.}
+  \label{fig:heterogenity}
+\end{figure}
+
 
 \section{Related Work}
 
