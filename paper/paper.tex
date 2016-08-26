@@ -168,7 +168,7 @@ That is, a successful cascade is only possible, if the graph's largest connected
 
 A node is vulnerable if its threshold is low enough so that only one of its neighbors needs to switch state for it to switch state itself. Such nodes can be thought of as ``early adopters'' of a technology, with the initial seed being an ``innovator''. A vulnerable cluster is a connected set of nodes that are ``early adopters'' (that are vulnerable) adjacent to an ``innovator''. This cluster must span a sufficiently (Watts never explicitly states what ``sufficient'' in this case means) large portion of the network (percolate) for the cascade condition to be true.
 
-Through some generating functions black magic Watts expresses this cascade condition analytically. A cascade is possible if:
+Through generating functions Watts expresses this cascade condition analytically. A cascade is possible if:
 
 \begin{equation}
   G_0''(1) = \sum_{k=0}^\infty k (k-1) \rho_k p_k > z
@@ -178,7 +178,7 @@ Let us break that down:
 
 \begin{itemize}
   \item $\sum_{k=0}^\infty$: We iterate over all possible thresholds $k$ from $0$ to infinity. The sum converges and in reality it is possible to only calculate the ``first few'' elements
-  \item $k (k-1)$ Never mind that. These are remainders of the generating functions black magic.
+  \item $k (k-1)$ These are remnants from the generating functions and are not directly relevant to the calculation.
   \item $\rho_k$ The probability that a node with degree $k$ is vulnerable (according to a probability distribution)
   \item $p_k$ The probability that a node has the threshold $k$ (according to a probability distribution)
   \item $G_0''(1)$ Treat this as an alias for the sum term. It is actually the solution for $x = 1$ of the second derivative of the generating function for the distribution of vulnerable nodes (which is $G_0(x) = \sum_k \rho_kp_kx^k$; the derivative-relationship is clearly visible)
