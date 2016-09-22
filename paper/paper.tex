@@ -29,9 +29,9 @@ Many phenomena in society seemingly start from nothing and propagate through peo
 
 Communication technologies, such as Skype or WhatsApp, need users to actually be useful for communication between them. But how do these applications gain users in the first place then? They are mutually incompatible with each other, so surely if no one is using them, there is no reason for other people to start using them either.
 
-One way to explain these phenomena is \emph{network cascades}. To stick with the high-level example above, assume that one person starts to use some communication technology. Then they tell their friends about it, convincing some of them to also begin using the application to communicate. Those friends to the same with their own friends, and so on and so forth. Given a suitably connected social network and a high enough ``convincability'' of its members, the usage will cascade through the entire network and eventually spread to all, or at least most, of its members. On the other hand, if the network does not have the required connectivity or if important bridge members cannot be convinced of the switch, the cascade may be halted and will not cause a global change in adoption.
+One way to explain these phenomena is \emph{network cascades}. To stick with the high-level example above, assume that one person starts to use some communication technology. Then they tell their friends about it, convincing some of them to also begin using the application to communicate. Those friends do the same with their own friends, and so on and so forth. Given a suitably connected social network and a high enough ``convincability'' of its members, the usage will cascade through the entire network and eventually spread to all, or at least most, of its members. On the other hand, if the network does not have the required connectivity or if important bridge members cannot be convinced of the switch, the cascade may be halted and will not cause a global change in adoption.
 
-To give another example, the model of network cascades can help to explain how some cultural artifacts like books or movies can emerge out of obscurity, while other artifacts never receive the attention of the general public, although being qualitatively comparable on an objective level. The basic assumption here is that the audience will make the decision of whether to give an artifact (a product) attention based on their observation of their social neighbors, rather than on their personal information. ``If all other people in my group of friends are reading a book then I too should read that book''.
+To give another example, the model of network cascades can help to explain how some cultural artifacts like books or movies can emerge out of obscurity, while other artifacts never receive the attention of the general public, although being qualitatively comparable on an objective level. The basic assumption here is that the audience will make the decision of whether to give an product or ``artifact'' attention based on their observation of their social neighbors, rather than on their personal information. ``If all other people in my group of friends are reading a book then I too should read that book''.
 
 Research in this area is in particular interest for marketing, where understanding the dynamics of the target marked network can lead to important insights on how to promote a product and hopefully encourage a cascade in said network, resulting in favorable sales figures.
 
@@ -59,7 +59,7 @@ Relating this to the example, this might mean that Alice, Bob, Charley and Dave 
 
 Each of these agents is connected to $k \in \mathbb{N}$ other nodes with a probability of $p_k \in [0,1]$. These edges represent the neighbors that each node observes, or in the example's terms, the person's friends. $p_k$ is Poisson-distributed: $p_k = \frac{e^{-z}z^k}{k!}$, with $z = \left<k\right>$ being the expectation-value of $p_k$ (the average degree).
 
-In our example, we choose $z$ to be 2. This means that the graph of the degree distribution for $p_k$ has its peak at 2 and that we would expect that most nodes have 2 neighbors. Plugging that into the distribution function tells us that the probability for this case (2 neighbors) is about $27\%$, and the probability for 1 neighbor is $27\%$, $18\%$ for 3 neighbors, $9\%$ for 4 and $3\%$ for 5, and so on. According to this, a ``realistic'' network for our potential WhatsApp users might have an connection between Alice and Bob, between Bob and Charley, and Charley and Dave, leaving Alice and Dave with each one neighbour, and Bob and Charley with each two neighbors. Figure \ref{fig:abcd} shows the graph for this setup.
+In our example, we choose $z$ to be 2. This means that the graph of the degree distribution for $p_k$ has its peak at 2 and that we would expect that most nodes have 2 neighbors. Plugging that into the distribution function tells us that the probability for this case of 2 neighbors is about $27\%$, and the probability for 1 neighbor is $27\%$, $18\%$ for 3 neighbors, $9\%$ for 4 and $3\%$ for 5, and so on. According to this, a ``realistic'' network for our potential WhatsApp users might have an connection between Alice and Bob, between Bob and Charley, and Charley and Dave, leaving Alice and Dave with each one neighbour, and Bob and Charley with each two neighbors. Figure \ref{fig:abcd} shows the graph for this setup.
 
 \begin{figure}[h!]
     \includegraphics[width=\columnwidth]{img/abcd}
@@ -70,7 +70,7 @@ In our example, we choose $z$ to be 2. This means that the graph of the degree d
 
 This random network model is equivalent to an Erdős-Rényi-Model with $p = \frac{z}{n}$. Networks following the Erdős-Rényi-Model are build by creating $n$ nodes and creating each possible edge with a probability $p$. This method generates networks which have a small average distances between nodes and a low amount of clustering.
 
-In the example, there are $n = 4$ nodes. With $z = 2$ $p$ is $\frac{2}{4} = 0.5$, so we would expect half of all possible edges to exist. There are 6 possible edges in the network (this is excluding edges from a node to itself), and we chose to create 3, so our example indeed conforms perfectly to the Erdős-Rényi-Model.
+In the example, there are $n = 4$ nodes. With $z = 2$ $p$ is $\frac{2}{4} = 0.5$, so we would expect half of all possible edges to exist. There are 6 possible edges in the network, excluding edges from a node to itself, and we chose to create 3, so our example indeed conforms perfectly to the Erdős-Rényi-Model.
 
 Then each agent is given a threshold $\phi \in [0,1]$, drawn from an arbitrary random distribution $f(\phi): [0,1] \rightarrow [0,1]$ which must be normalized such that $\int_0^1 f(\phi) d\phi = 1$, i.e. the area beneath the probability function is 1, which means that all distributions must allocate the same total of probabilities. This restriction is necessary because we are assigning a probability to mutually exclusive ``events''. Relating to the example, this represents the ``convincability'' of a person.
 
@@ -89,19 +89,19 @@ This means that the thresholds $0.1, 0.2, 0.3, 0.4, 0.7, 0.8, 0.9$ all have a pr
 
 Finally, all agents are given a state $\in \left\lbrace 0, 1 \right\rbrace$, which is initially set to $0$ for all notes. In the example's case, a state of $1$ represents a user of the communication application and a value of $0$ represents someone not using it.
 
-Now the model is simulated over a time $t$, starting with $0$. At a random point in time, the state of a single node (the seed) is changed to $1$. This is analogous to the first person starting to use the application.
+Now the model is simulated over a time $t$, starting with $0$. At a random point in time, the state of a single node, called ``the seed'', is changed to $1$. This is analogous to the first person starting to use the application.
 
 In independent random intervals, each node with state $0$ checks the state of all its neighbors. If the ratio of neighbors with states $1$ is greater than or equal to the node's threshold $\phi$, it will also change its state to $1$. This is the act of a person being ``convinced'' to begin using the application because enough of their friends are using it as well.
 
 However, an agent with state $1$ will never switch back to state $0$. This does not directly map to a concept in a real-world example, as people may stop using an application at a later time. See also section \ref{sec:threats}.
 
-In the example with Alice and the others, we apply the first probability distribution from above. Let us say that Alice and Bob are assigned a threshold of $\phi_{Alice} = \phi_{Bob} = 0.5$ (for which the probability is $20\%$), Charley is assigned $\phi_{Charley} = 0.3$ and Dave $\phi_{Dave} = 0.9$. This means that Dave is very hard to ``convince'', at least $90\%$ of his neighbors must use WhatsApp before he decides to use it (switch his state to $1$), whereas Charley already switches if only $30\%$ of his neighbors adopt the technology. Since Dave has only 1 neighbor, Charley, he switches as soon as Charley switches (in this case, $100\%$ of his neighbors would have switched). Dave has two neighbors, Bob and Dave, but only needs $30\%$ to switch, so it suffices if either Bob or Dave switch (that would be $50\%$ of his neighbors).
+In the example with Alice and the others, we apply the first probability distribution from above. Let us say that Alice and Bob are assigned a threshold of $\phi_{Alice} = \phi_{Bob} = 0.5$ (for which the probability is $20\%$), Charley is assigned $\phi_{Charley} = 0.3$ and Dave $\phi_{Dave} = 0.9$. This means that Dave is very hard to ``convince'', at least $90\%$ of his neighbors must use WhatsApp before he decides to use it i.e. switch his state to $1$, whereas Charley already switches if only $30\%$ of his neighbors adopt the technology. Since Dave has only 1 neighbor, Charley, he switches as soon as Charley switches: In this case, $100\%$ of his neighbors would have switched. Dave has two neighbors, Bob and Dave, but only needs $30\%$ to switch, so it suffices if either Bob or Dave switch. This would be $50\%$ of his neighbors.
 
 The model is then simulated over time until a steady state is reached. That is, the point where the entire system is stable and no agent will ever change its state again. The case of a steady state is easily verifiable: if all agents have observed their neighbors at least once since the last time any agent changed its state, then further observations will always lead to the same repeated result of no agent changing its state anymore. At this point, the simulation is finished.
 
 After the simulation is done, there can be two results: either the experiment was successful and a global cascade has occurred, or the experiment has failed and the cascade was too small to be considered global.
 
-What exactly constitutes as a successful global cascade is defined by $\frac{\textmd{Number of agents}}{\textmd{Agents in state } 1} \geq T$, where $T \in [0, 1]$ is some arbitrarily chosen threshold value. For example, $T = 1$ would require every last agent to have changed its state to $1$, which is difficult to achieve in a large random graph. A value like $T = 0.9$ would only require a 90\% majority, but still intuitively result in a cascade that was ``sufficiently global''.
+What exactly constitutes as a successful global cascade is defined by $NumberOfAgents/AgentsInState1 \geq T$, where $T \in [0, 1]$ is some arbitrarily chosen threshold value. For example, $T = 1$ would require every last agent to have changed its state to $1$, which is difficult to achieve in a large random graph. A value like $T = 0.9$ would only require a 90\% majority, but still intuitively result in a cascade that was ``sufficiently global''.
 
 
 \section{Example}\label{sec:example}
@@ -119,7 +119,7 @@ To keep the example from being overly long, we will use $n = 5$ agents. Figure \
     \label{fig:model1}
 \end{figure}
 
-In this configuration, nothing actually occurs yet however, since all states are $0$. All agents do periodically check their neighbors and calculate if they should change their own state, but of course this always results in no change. To actually begin the simulation proper, we must create the initial impulse. That is, we change the state of one node to $1$ at a random point in time. In this case, we have chosen the node with threshold $\phi = 1$. The new state can be seen in figure \ref{fig:model2}.
+In this configuration, nothing actually occurs yet however, since all states are $0$. All agents do periodically check their neighbors and calculate if they should change their own state, but of course this always results in no change. To actually begin the simulation properly, we must create the initial impulse. That is, we change the state of one node to $1$ at a random point in time. In this case, we have chosen the node with threshold $\phi = 1$. The new state can be seen in Figure \ref{fig:model2}.
 
 \begin{figure}[h!]
     \includegraphics[width=\columnwidth]{../presentation/img/model5}
@@ -128,7 +128,7 @@ In this configuration, nothing actually occurs yet however, since all states are
     \label{fig:model2}
 \end{figure}
 
-As the simulation keeps going, eventually the neighboring node with $\phi = 0.1$ will inspect its neighbors and notice the change. It has $4$ neighbors, of which $1$ is in state $1$. That means it compares $\frac{1}{4}$ to its own threshold of $0.1$. Since the calculated value is above the threshold, the node will change its own state to $1$. The new state of the network can be seen in figure \ref{fig:model3}.
+As the simulation keeps going, eventually the neighboring node with $\phi = 0.1$ will inspect its neighbors and notice the change. It has $4$ neighbors, of which $1$ is in state $1$. That means it compares $\frac{1}{4}$ to its own threshold of $0.1$. Since the calculated value is above the threshold, the node will change its own state to $1$. The new state of the network can be seen in Figure \ref{fig:model3}.
 
 \begin{figure}[h!]
     \includegraphics[width=\columnwidth]{../presentation/img/model6}
@@ -139,7 +139,7 @@ As the simulation keeps going, eventually the neighboring node with $\phi = 0.1$
 
 There are also examples in which the state of the network does not change. For instance, if the node with threshold $\phi = 0.8$ checks its surroundings at this point, it will see that $1$ of its $3$ neighbors is in state $1$. However, since $\frac{1}{3}$ is below its own threshold of $0.8$, the node's state remains in state $0$.
 
-Next, we will look at the node with threshold $\phi = 0.5$. It has $3$ neighbors, of which $2$ have already changed their state. Since $\frac{2}{3} > 0.5$, the node also changes its state and the graph's state looks like in figure \ref{fig:model4}.
+Next, we will look at the node with threshold $\phi = 0.5$. It has $3$ neighbors, of which $2$ have already changed their state. Since $\frac{2}{3} > 0.5$, the node also changes its state and the graph's state looks like in Figure \ref{fig:model4}.
 
 \begin{figure}[h!]
     \includegraphics[width=\columnwidth]{../presentation/img/model7}
@@ -148,7 +148,7 @@ Next, we will look at the node with threshold $\phi = 0.5$. It has $3$ neighbors
     \label{fig:model4}
 \end{figure}
 
-As should be obvious by now, the final two nodes will also change their state at this point. First the node with $\phi = 0.5$ and finally the node with $\phi = 0.8$. At that point, the entire network is in a stable, unchanging state, as can be seen in figure \ref{fig:model5}. Since the entire network has changed its state to a uniform $1$, the cascade successfully worked its way from a single impulse to covering the entire network.
+As should be obvious by now, the final two nodes will now also change their state. First the node with $\phi = 0.5$ and finally the node with $\phi = 0.8$. At that point, the entire network is in a stable, unchanging state, as can be seen in Figure \ref{fig:model5}. Since the entire network has changed its state to a uniform $1$, the cascade successfully worked its way from a single impulse to covering the entire network.
 
 \begin{figure}[h!]
     \includegraphics[width=\columnwidth]{../presentation/img/model9}
@@ -162,11 +162,11 @@ Different outcomes could have been possible as well, if a different node were ch
 
 \section{Analysis of the Model}\label{sec:analysis}
 
-Watts claims that global cascades are only possible if \textquote{the largest vulnerable cluster percolates}. This is called the \emph{cascade condition}.
+Watts claims that global cascades are only possible if \textquote{the largest vulnerable cluster percolates}\cite{simplemodel}. This is called the \emph{cascade condition}.
 
 That is, a successful cascade is only possible, if the graph's largest connected cluster of agents changes its state to $1$. This is only a necessary condition however: if the cascade condition is not fulfilled, a successful cascade is impossible, but a fulfilled cascade condition does not guarantee a successful cascade.
 
-A node is vulnerable if its threshold is low enough so that only one of its neighbors needs to switch state for it to switch state itself. Such nodes can be thought of as ``early adopters'' of a technology, with the initial seed being an ``innovator''. A vulnerable cluster is a connected set of nodes that are ``early adopters'' (that are vulnerable) adjacent to an ``innovator''. This cluster must span a sufficiently (Watts never explicitly states what ``sufficient'' in this case means) large portion of the network (percolate) for the cascade condition to be true.
+A node is vulnerable if its threshold is low enough so that only one of its neighbors needs to switch state for it to switch state itself. Such nodes can be thought of as ``early adopters'' of a technology, with the initial seed being an ``innovator''. A vulnerable cluster is a connected set of nodes that are ``early adopters'' (that are vulnerable) adjacent to an ``innovator''. This cluster must span a sufficiently large portion of the network for the cascade condition to be true. ``Spanning the network'' is called ``percolating'' int the paper. Watts never explicitly states what ``sufficient spanning'' in this case means, unfortunately.
 
 Through generating functions Watts expresses this cascade condition analytically. A cascade is possible if:
 
@@ -186,7 +186,7 @@ Let us break that down:
 
 In summary, for given probability distributions for both node degree and node threshold, the cascade condition inequation tells us if a vulnerable cluster percolates the network, meaning that global cascades are possible.
 
-To illustrate this, let us choose those distributions and see what happens. We will construct a uniform graph with a homogeneous threshold. Uniform graphs have a Poisson degree distribution $p_k = \frac{e^{-z}z^k}{k!}$ with $z$ being the mean (the peak) of the distribution. The fixed threshold is easily modeled: The probability for a node being vulnerable is $\rho_k = P(\phi \leq \frac{1}{k})$, but since $\phi$ (the threshold) in this case is fixed, we just need to use $1$ for $\phi \leq \frac{1}{k}$ and $0$ for $\phi > \frac{1}{k}$ (and $1$ for $k = 0$).
+To illustrate this, let us choose those distributions and see what happens. We will construct a uniform graph with a homogeneous threshold. Uniform graphs have a Poisson degree distribution $p_k = \frac{e^{-z}z^k}{k!}$ with $z$ being the mean of the distribution. The fixed threshold is easily modeled: The probability for a node being vulnerable is $\rho_k = P(\phi \leq \frac{1}{k})$, but since the threshold $\phi$ in this case is fixed, we just need to use $1$ for $\phi \leq \frac{1}{k}$ and $0$ for $\phi > \frac{1}{k}$ (and $1$ for $k = 0$).
 
 For instance, let us see if cascades are possible for a fixed threshold $\phi = 0.2$ and a Poisson-distributed degree with mean $z = 2$. Table \ref{tab:z2} shows the results for that graph.
 
@@ -233,9 +233,9 @@ Watts tested this condition for these distributions for $z$ from $20$ to $0$ and
 
 There are two areas in this diagram: One in which cascades are possible for the combination of $z$ and $\phi$ and one where no cascades are possible. It becomes apparent that there are two important transitions or ``boundaries'': One at an average degree $z = 1$ independent of the threshold, and one with high average degrees and low threshold, with increasing threshold as the average degree decreases.
 
-The dotted line in the diagram is the result of empirical testings where random networks where generated for the same distributions and the two parameters and tested, i.e. simulated. It is obvious that the calculated and the empirical phase transitions align (with reasonable precision), which validates the cascade condition inequation.
+The dotted line in the diagram is the result of empirical testings where random networks where generated for the same distributions and the two parameters and tested, i.e. simulated. It is obvious that the calculated and the empirical phase transitions align with reasonable precision, which validates the cascade condition inequation.
 
-The cascade window diagram is limited to a binary statement whether cascades are possible. To gain further insight on  the nature of cascades inside the window, Watts examined ``cross section'' of the window for $\phi=0.18$ (marked in figure \ref{fig:cascade-window} with by the densely stroked line at $\phi=0.18$), consisting of several measurements. They are depicted in figure \ref{fig:cross-section}. The upper graph (a) maps from $z$ to the amount of steps required for the cascade to occur. The lower figure (b) maps from $z$ to various percentages.
+The cascade window diagram is limited to a binary statement whether cascades are possible. To gain further insight on  the nature of cascades inside the window, Watts examined ``cross section'' of the window for $\phi=0.18$ (marked in Figure \ref{fig:cascade-window} with by the densely stroked line at $\phi=0.18$), consisting of several measurements. They are depicted in Figure \ref{fig:cross-section}. The upper graph (a) maps from $z$ to the amount of steps required for the cascade to occur. The lower figure (b) maps from $z$ to various percentages.
 
 \begin{figure}[h!]
   \centering
@@ -256,16 +256,16 @@ There are 6 graphs here:
 
 Refer to section \ref{sec:findings} for Watts' interpretation of these graphs.
 
-Further insights on the cascade window can be gained by examining the size of cascades around its boundaries. Figure \ref{fig:cascade-size} shows the cumulative distribution of the cascade sizes. The size of a cascade is measured in terms of the ratio between agents in state $1$ to the total number of agents. The examined section of the window is the same as in figure \ref{fig:cross-section}. See \ref{sec:findings} for Watts' interpretation of this graph.
+Further insights on the cascade window can be gained by examining the size of cascades around its boundaries. Figure \ref{fig:cascade-size} shows the cumulative distribution of the cascade sizes. The size of a cascade is measured in terms of the ratio between agents in state $1$ to the total number of agents. The examined section of the window is the same as in Figure \ref{fig:cross-section}. See \ref{sec:findings} for Watts' interpretation of this graph.
 
 
 \section{Findings}\label{sec:findings}
 
-In the above section \ref{fig:cross-section} was introduced as a means to compare the properties of the cascade window for a given threshold. Watts' interpretation of the results is as follows:
+In the above Figure \ref{fig:cross-section} was introduced as a means to compare the properties of the cascade window for a given threshold. Watts' interpretation of the results is as follows:
 
 There is an obvious relation of the frequency of global cascades (open circles, in the middle) to the relative size of the vulnerable cluster (long dashes and crosses, the lower two graphs). They are roughly proportional, but the size of the cluster ``underestimates'' the cascade frequency. The given explanation for this is, that agents directly adjacent do the vulnerable cluster (who are themselves not vulnerable) can still trigger further cascades or promote the expansion of a cascade in the latter state of the cascade when most of it's vulnerable neighbors have been switched. This explanation is validated by examining the size of the extended vulnerable cluster, which comprises the vulnerable cluster plus its immediate (stable) neighbor nodes. And indeed the plot for the extended vulnerable cluster (short dashes, in the middle) is virtually equal to the cascade frequency, thus validating the explanation.
 
-The average size of global cascades (solid line and solid circles, the upper graphs) is obviously not related to the size of the vulnerable cluster or the extended vulnerable cluster, since it does not decline with decreasing sizes for greater values of $z$. It is only governed by the $z$, i.e. the connectivity of the whole network. The relationship between connectivity and cascade size is further examined below, using figure \ref{fig:cascade-size}. The intuition that with decreasing size of the vulnerable cluster (to which the cascade is limited) the size of cascades should also decrease is false. Although unable to give a definitive explanation, Watts tries to explain this phenomenon: In the later stages of the cascade, the cascade has switched a lot of vulnerable nodes to $1$. In this situation it is possible that stable nodes, i.e. nodes that need more than one neighbor switching to switch themselves, have multiple switched adjacent vulnerable nodes and now do switch. This process could repeat itself until the entire connected component to which the vulnerable cluster belongs might be switched. Watts did not investigate in this paper if this phenomenon only occurs in the examined class of random graphs or if it also appears in other random graphs.
+The average size of global cascades (solid line and solid circles, the upper graphs) is obviously not related to the size of the vulnerable cluster or the extended vulnerable cluster, since it does not decline with decreasing sizes for greater values of $z$. It is only governed by the $z$, i.e. the connectivity of the whole network. The relationship between connectivity and cascade size is further examined below, using Figure \ref{fig:cascade-size}. The intuition that with decreasing size of the vulnerable cluster (to which the cascade is limited) the size of cascades should also decrease is false. Although unable to give a definitive explanation, Watts tries to explain this phenomenon: In the later stages of the cascade, the cascade has switched a lot of vulnerable nodes to $1$. In this situation it is possible that stable nodes, i.e. nodes that need more than one neighbor switching to switch themselves, have multiple switched adjacent vulnerable nodes and now do switch. This process could repeat itself until the entire connected component to which the vulnerable cluster belongs might be switched. Watts did not investigate in this paper if this phenomenon only occurs in the examined class of random graphs or if it also appears in other random graphs.
 
 \begin{figure}[h!]
   \centering
@@ -296,7 +296,7 @@ Similarly distributed results can be observed in networks that vary in their dis
   \label{fig:dunnolol}
 \end{figure}
 
-The same goes for a change in connectivity distribution, as can be seen in figure \ref{fig:dunnolol}. A uniform Poisson distribution has a higher rate of cascades than a power-law distributed graph. This can be explained by the compound effects from before. In a power law distribution, there are pockets of low connectivity, where it impedes the progress of the cascade. There are also pockets of high connectivity, leading to nodes with many neighbors, which makes reaching their neighbor threshold difficult.
+The same goes for a change in connectivity distribution, as can be seen in Figure \ref{fig:dunnolol}. A uniform Poisson distribution has a higher rate of cascades than a power-law distributed graph. This can be explained by the compound effects from before. In a power law distribution, there are pockets of low connectivity, where it impedes the progress of the cascade. There are also pockets of high connectivity, leading to nodes with many neighbors, which makes reaching their neighbor threshold difficult.
 
 
 \section{Threats to Validity}\label{sec:threats}
@@ -318,7 +318,7 @@ Finally, the paper itself does not have a section on threats to validity, despit
 
 The mathematical basis for the calculations in section \ref{sec:analysis} about the cascade condition is formed by generating functions (hence the name $G_0''(1)$ for the condition). Generating functions are a convenient tool to express series of numbers in a concise fashion. Applied to probability distributions, they allow for a convenient examination of that distribution.
 
-An introduction to generating functions can be found in \cite{wilf1994generatingfunctionology} (this version of the book is referenced by Watts et. al. in his paper below).
+An introduction to generating functions can be found in \cite{wilf1994generatingfunctionology}. Tthis version of the book is referenced by Watts et. al. in his paper below.
 
 A slightly different and more basic version of the approach to finding an analytical cascade condition is described by Watts and his co-authors in \cite{newman2001random}. They use generating functions to express the degree distribution of arbitrary networks and then analyze for component sizes, average component sizes and the phase transition between going from a largely unconnected network to a network that is mostly one single connected component (the ``giant component'', in terms of the paper). One can easily see, although this is only a very high level description of the paper's contents, that there are striking parallels to this paper about network cascades. They also go a bit further and analyze for the asymptotic form of the cluster size distribution, the number of neighbors and the average path length.
 
