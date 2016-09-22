@@ -64,10 +64,8 @@ class Main extends Sprite
 
         for (i in 0 ... nodeCount) {
             var node = new Node(Math.random(), false);
-            do {
-                node.x = contentWidth  * Math.random();
-                node.y = contentHeight * Math.random();
-            } while(nodeTooClose(node, nodes));
+            node.x = contentWidth  * Math.random();
+            node.y = contentHeight * Math.random();
             content.addChild(node);
             nodes.push(node);
 
@@ -190,16 +188,6 @@ class Main extends Sprite
     public static function rand(min:Int, max:Int)
     {
         return Std.random(max - min + 1) + min;
-    }
-
-    public function nodeTooClose(node:Node, otherNodes:Array<Node>)
-    {
-        for (other in otherNodes) {
-            if (node.distanceTo(other) < MIN_NODE_DISTANCE) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static function circleContainsPoint(circleX:Float, circleY:Float, circleRadius:Float, pointX:Float, pointY:Float)
