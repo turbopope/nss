@@ -12,9 +12,11 @@ class Node extends Sprite
     static inline var MIN_DELAY = 1;
     static inline var MAX_DELAY = 30;
 
-    static var blue:BitmapData;
-    static var red :BitmapData;
+    static var blue  :BitmapData;
+    static var red   :BitmapData;
+    static var nextId:Int = 0;
 
+    public var id       (default, null):Int;
     public var tau      (default, null):Float;
     public var state    (default, set ):Bool;
     public var lines    (default, null):Sprite;
@@ -41,6 +43,7 @@ class Node extends Sprite
         bitmap.y = bitmap.height / -2;
         addChild(bitmap);
 
+        this.id    = nextId++;
         this.tau   = tau;
         this.state = state;
         this.lines = new Sprite();
@@ -49,6 +52,12 @@ class Node extends Sprite
         lines.alpha = 0.1;
 
         nextCheck();
+    }
+
+
+    public function dump():String
+    {
+        return 'Node $id, state ${state ? 1 : 0}, tau: $tau';
     }
 
 
@@ -70,7 +79,7 @@ class Node extends Sprite
 
     public function checkState()
     {
-        if (checking) {
+        if (!state && checking) {
             lines.alpha = 0.5;
             scaleX = scaleY = 2;
 
