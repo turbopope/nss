@@ -1,23 +1,25 @@
-# NOTE TO REVIEWERS
-
-The application isn't terribly usable right now, but we don't have time to fix it due to looming exams.
-
-It will be improved for the final version of the paper though, so check again then.
-
-
 # Simulator
 
-Requires OpenFL: <http://www.openfl.org/download/>
+Simple visual simulator for network cascades. We used this to understand the model and construct examples.
+
+There's a pre-built HTML5 version in [html5/index.html](html5/index.html). Clone this repository and open the file in your browser to see it.
+
+You can hit the keys mentioned at the top of the simulation to control it. Clicking a node will change its state. Hovering over one will show you its tau value.
+
+
+## Building
+
+Requires Haxe and OpenFL: <http://www.openfl.org/download/>
 
 Compile and run with `lime test <target>`, where target is one of:
 
-* `flash` (just don't)
+* `html5`
 
-* `html5` (does not work anymore since we need `sys.io.File`)
+* `flash`
 
-* `neko`
+* `neko` (Haxe's native target)
 
-* `cpp`
+* `cpp` (native C++ target)
 
 Or cross compile to:
 
@@ -28,5 +30,3 @@ Or cross compile to:
 * `mac`
 
 * `android`
-
-Pass `-args <save>` to load a network save file.
