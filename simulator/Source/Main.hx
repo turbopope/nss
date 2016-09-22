@@ -1,11 +1,13 @@
 import haxe.Timer;
-import sys.io.File;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.Event.RESIZE;
 import openfl.events.Event.ENTER_FRAME;
 import openfl.events.MouseEvent.CLICK;
+import openfl.events.MouseEvent.MOUSE_OUT;
+import openfl.events.MouseEvent.MOUSE_OVER;
 import openfl.events.KeyboardEvent.KEY_DOWN;
+import openfl.Lib;
 import openfl.ui.Keyboard;
 
 
@@ -14,7 +16,13 @@ class Main extends Sprite
     var contentWidth  = 1920.0;
     var contentHeight = 1080.0;
 
-    var NODES  = 200;
+    static inline var INFO_TEXT = "[Space] play/pause [Q] faster [W] slower "
+                                + "[S] single step [I] trigger random impulse "
+                                + "[H] hide this help [R] reset";
+
+    static inline var MIN_NODES = 100;
+    static inline var MAX_NODES = 300;
+
     var MIN_K  = 1;
     var MAX_K  = 5;
     var UNIT_DISC_RADIUS = 200;
@@ -23,40 +31,42 @@ class Main extends Sprite
     var MIN_IMPULSE_COUNT = 10;
     var MAX_IMPULSE_COUNT = 20;
 
+    var info:Info;
+
     var content = new Sprite();
     var nodes   = new Array<Node>();
     var time    = 0.0;
     var scale   = 0.0;
     var step    = 0.0;
+    var speed   = 0.1;
 
     public function new()
     {
         super();
         addChild(content);
 
-        var save : {nodes:Array<Dynamic>, edges:Array<Dynamic>} = null;
-        if (Sys.args().length == 2) {
-            var saveName = Sys.args()[0];
-            save = haxe.Json.parse(File.getContent("../../../../../" + saveName + ".json"));
+        setUpNodes();
 
-            NODES = getDynamicProperty(save, "NODES", NODES);
-            MIN_K = getDynamicProperty(save, "MIN_K", MIN_K);
-            MAX_K = getDynamicProperty(save, "MAX_K", MAX_K);
-            UNIT_DISC_RADIUS = getDynamicProperty(save, "UNIT_DISC_RADIUS", UNIT_DISC_RADIUS);
-            MIN_NODE_DISTANCE = getDynamicProperty(save, "MIN_NODE_DISTANCE", MIN_NODE_DISTANCE);
+        stage.addEventListener(KEY_DOWN, onKey);
+        stage.addEventListener(RESIZE, resize);
+        resize();
 
-            MIN_IMPULSE_COUNT = getDynamicProperty(save, "MIN_IMPULSE_COUNT", MIN_IMPULSE_COUNT);
-            MAX_IMPULSE_COUNT = getDynamicProperty(save, "MAX_IMPULSE_COUNT", MAX_IMPULSE_COUNT);
+        addEventListener(ENTER_FRAME, onFrame);
+    }
 
-            contentWidth  = getDynamicProperty(save, "WIDTH",  contentWidth );
-            contentHeight = getDynamicProperty(save, "HEIGHT", contentHeight);
-        }
 
-        for (i in 0 ...  NODES) {
+    function setUpNodes()
+    {
+        var nodeCount = Std.random(MAX_NODES - MIN_NODES + 1) + MIN_NODES;
+
+        info      = new Info();
+        info.text = INFO_TEXT;
+
+        for (i in 0 ... nodeCount) {
             var node = new Node(Math.random(), false);
             do {
-                node.x   = contentWidth  * Math.random();
-                node.y   = contentHeight * Math.random();
+                node.x = contentWidth  * Math.random();
+                node.y = contentHeight * Math.random();
             } while(nodeTooClose(node, nodes));
             content.addChild(node);
             nodes.push(node);
@@ -64,6 +74,15 @@ class Main extends Sprite
             node.buttonMode = true;
             node.addEventListener(CLICK, function (_) {
                 node.state = !node.state;
+                info.text  = node.dump();
+            });
+
+            node.addEventListener(MOUSE_OVER, function (_) {
+                info.text = node.dump();
+            });
+
+            node.addEventListener(MOUSE_OUT, function (_) {
+                info.text = INFO_TEXT;
             });
         }
 
@@ -84,7 +103,7 @@ class Main extends Sprite
                 var toTest = nodes.copy();
                 toTest.remove(other);
                 toTest.remove(node);
-                if (connecting_circle_empty(node, other, toTest)) {
+                if (connectingCircleEmpty(node, other, toTest)) {
                     node.addNeighbor(other);
                     other.addNeighbor(node);
                 }
@@ -93,44 +112,18 @@ class Main extends Sprite
             content.addChildAt(node.lines, 0);
         }
 
-        if (save != null) {
-            var newNodes = new Array<Node>();
-            for (rawNode in save.nodes) {
-                var state = false;
-                if (Reflect.hasField(rawNode, "s")) {
-                    state = Reflect.field(rawNode, "s");
-                    state = true;
-                }
-                var node = new Node(rawNode.t, state);
-                node.x = rawNode.x;
-                node.y = rawNode.y;
-                newNodes.push(node);
-            }
+        content.addChild(info);
+    }
 
-            for (rawEdge in save.edges) {
-                var a = newNodes[rawEdge.a];
-                var b = newNodes[rawEdge.b];
-                a.addNeighbor(b);
-                b.addNeighbor(a);
-            }
 
-            for (newNode in newNodes) {
-                content.addChild(newNode);
-                nodes.push(newNode);
-                content.addChildAt(newNode.lines, 0);
-                newNode.buttonMode = true;
-                newNode.addEventListener(CLICK, function (_) {
-                    newNode.state = !newNode.state;
-                });
-            }
-        }
-
-        stage.addEventListener(KEY_DOWN, onKey);
-
-        stage.addEventListener(RESIZE, resize);
-        resize();
-
-        addEventListener(ENTER_FRAME, onFrame);
+    function reset() {
+        nodes = [];
+        time  = 0.0;
+        scale = 0.0;
+        step  = 0.0;
+        speed = 0.1;
+        content.removeChildren();
+        setUpNodes();
     }
 
 
@@ -140,22 +133,29 @@ class Main extends Sprite
             case Keyboard.S: {
                 ++step;
             }
-            case Keyboard.C: {
-                for (n in nodes) {
-                    n.checkState();
-                }
-            }
             case Keyboard.I: {
                 impulse();
             }
-            case Keyboard.UP: {
-                scale += 0.01;
-            }
-            case Keyboard.DOWN: {
-                scale = Math.max(0, scale - 0.01);
-            }
             case Keyboard.SPACE: {
-                scale = 0;
+                scale = scale > 0.0 ? 0.0 : speed;
+            }
+            case Keyboard.Q: {
+                speed *= 1.1;
+                if (scale > 0.0) {
+                    scale = speed;
+                }
+            }
+            case Keyboard.W: {
+                speed /= 1.1;
+                if (scale > 0.0) {
+                    scale = speed;
+                }
+            }
+            case Keyboard.R: {
+                reset();
+            }
+            case Keyboard.H: {
+                info.visible = !info.visible;
             }
         }
     }
@@ -176,13 +176,7 @@ class Main extends Sprite
 
     function impulse()
     {
-        var impulses  = rand(MIN_IMPULSE_COUNT, MAX_IMPULSE_COUNT);
-        var nodesLeft = nodes.copy();
-        for (i in 0 ... impulses) {
-            var node = nodesLeft[Std.random(nodesLeft.length)];
-            nodesLeft.remove(node);
-            node.state = true;
-        }
+        nodes[Std.random(nodes.length)].state = true;
     }
 
 
@@ -216,7 +210,7 @@ class Main extends Sprite
         return distance <= circleRadius;
     }
 
-    function connecting_circle_empty(a:Node, b:Node, otherNodes:Array<Node>)
+    function connectingCircleEmpty(a:Node, b:Node, otherNodes:Array<Node>)
     {
         var diameter = a.distanceTo(b);
         var midPointX = (a.x + b.x) / 2;
@@ -227,13 +221,5 @@ class Main extends Sprite
             }
         }
         return true;
-    }
-
-    public static function getDynamicProperty<T>(dyn:Dynamic, field:String, def:T):T
-    {
-      if (Reflect.hasField(dyn, field)) {
-          return Reflect.field(dyn, field);
-      }
-      return def;
     }
 }
