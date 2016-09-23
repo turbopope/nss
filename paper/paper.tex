@@ -318,11 +318,14 @@ Finally, the paper itself does not have a section on threats to validity, despit
 
 The mathematical basis for the calculations in section \ref{sec:analysis} about the cascade condition is formed by generating functions (hence the name $G_0''(1)$ for the condition). Generating functions are a convenient tool to express series of numbers in a concise fashion. Applied to probability distributions, they allow for a convenient examination of that distribution.
 
-An introduction to generating functions can be found in \cite{wilf1994generatingfunctionology}. Tthis version of the book is referenced by Watts et. al. in his paper below.
+An introduction to generating functions can be found in \cite{wilf1994generatingfunctionology}. This version of the book is referenced by Watts et. al. in his paper below.
 
 A slightly different and more basic version of the approach to finding an analytical cascade condition is described by Watts and his co-authors in \cite{newman2001random}. They use generating functions to express the degree distribution of arbitrary networks and then analyze for component sizes, average component sizes and the phase transition between going from a largely unconnected network to a network that is mostly one single connected component (the ``giant component'', in terms of the paper). One can easily see, although this is only a very high level description of the paper's contents, that there are striking parallels to this paper about network cascades. They also go a bit further and analyze for the asymptotic form of the cluster size distribution, the number of neighbors and the average path length.
 
+There also exists an extension to Watt's model for use with temporal networks in \cite{temporal}. Those networks add the dimension of time, which means, for instance, links between nodes may only exist at certain points in time. This is clearly a useful property for extending Watt's model, where nodes periodically check the state of their neighbors, since it can be modelled in more detail using a temporal network. The paper contrasts their approaches with Watt's original model and also tries out a version where thresholds are absolute numbers, rather than relative fractions of neighbors.
 
+
+\newpage
 \section{Conclusion}\label{sec:summary}
 
 In his paper, Watts introduced a network-theoretical model to explain the occurrence of network cascades. The model is analyzed analytically and empirically and at least for some graph classes conditions for cascades are found. There are two so called regimes of these conditions: One where average degree of the network is low and the threshold is unimportant. Here the cascade size exhibits a power law distribution. As the average degree increases, the threshold under the fraction of neighboring activated nodes must lie must decrease in order to retain vulnerability, and thus becomes the limiting factor. Here the distribution of the cascade size is bimodal, with many small cascades and some very large cascades. Also further effects of network properties are examined.
