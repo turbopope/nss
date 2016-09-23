@@ -1,8 +1,8 @@
 paper.pdf: paper.tex paper.bib Makefile
-	pdflatex paper
+	pdflatex -shell-escape paper
 	bibtex paper
-	pdflatex paper
-	pdflatex paper
+	pdflatex -shell-escape paper
+	pdflatex -shell-escape paper
 	./checkwords
 
 rebuild:
